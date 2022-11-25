@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/removed_devices"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/SCREEN"
+    tools:context=".RemoveDevice">
+
+    <LinearLayout
+        android:id="@+id/topLay"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/y"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/removedeviceListView"
+        style="@style/TEXT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/removedeviceListView"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topLay" />
+
+    <ListView
+        android:id="@+id/remove_devices_listview"
+        style="@style/TEXT"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removedeviceListView" />
+
+    <Button
+        android:id="@+id/DeleteButton"
+        style="@style/BUTTON"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/DeleteButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Patient_Name1"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/Patient_Name1"
+        style="@style/LoginTextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remove_devices_listview"
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextPhone"
+            style="@style/TEXT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="#959594" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

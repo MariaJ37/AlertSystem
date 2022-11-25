@@ -1,0 +1,70 @@
+<resources>
+    <!-- Strings used for the menu_main.xml file-->
+    <string name="app_name">System Master</string>
+    <string name="add_new_device">Add new device</string>
+    <string name="remove_device">Remove device</string>
+    <string name="App_user">App user</string>
+    <string name="Edit_patient_info">Edit Patient Info</string>
+    <!--Strings used for fragment first-->
+    <string name="Pending_Alerts">Pending Alerts</string>
+    <string name="alert_notification_on_main">ALERT</string>
+    <string name="AlertButton">Alerts</string>
+    <string name="mydevices">Room code</string>
+    <string name="deviceButton">Devices</string>
+    <string name="listview_of_devices">List View of devices</string>
+    <!--Strings used for SecondFragment-->
+    <string name="Devices">Devices</string>
+    <!--Strings used ThirdFragment-->
+    <string name="AlertToolbar">ALERT</string>
+    <string name="Patient_info">Patient info</string>
+    <string name="emergency_contact">Emergency Contact</string>
+    <string name="alert_type">Alert type</string>
+    <string name="type_of_alert">No movement/No connectivity/Low battery</string>
+    <string name="device_status">Status</string>
+    <string name="Last_registered_movement">Last Register movement/ping/Battery life</string>
+    <string name="resolveButton">Resolved</string>
+    <string name="emergency_contact_alert">Name/Phone</string>
+    <string name="patient_info_alert">Name/Phone/Address</string>
+    <!--Strings used in activity settings-->
+    <string name="ListView_Devices">List View of Devices</string>
+    <string name="Devices_available">Available Devices</string>
+    <string name="Add_device">Add device</string>
+    <!--Strings used in remove device activity-->
+    <string name="removedeviceListView">List of Rooms</string>
+    <string name="removed_devices">Remove Room</string>
+    <string name="Remove_device">Remove Room</string>
+    <string name="namedevicetodelete">Room</string>
+    <string name="DeleteButton">Delete</string>
+    <string name="SaveItemButton">Add</string>
+    <!--Strings used in User Name-->
+    <string name="User_profile">User Profile</string>
+    <string name="listviewavailableusers">List View of available users</string>
+    <string name="NewUser">New User</string>
+    <string name="editNameInUserProfile">Name</string>
+    <string name="listviewOfUsers">Users</string>
+    <string name="SaveUserName">Save</string>
+    <!--Strings used in Patient Info-->
+    <string name="Patient_Info">Patient Info:</string>
+    <string name="Emergency_Contact">Emergency Contact:</string>
+    <string name="Device_Name">Device</string>
+    <string name="Patient_Name">Name</string>
+    <string name="Patient_Address">Address</string>
+    <string name="Patient_Phone">Phone</string>
+    <string name="Emergency_name">Name</string>
+    <string name="SaveButtonPatient">Save</string>
+    <string name="Patient_Room">Room</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="ShownAlert">Patient X needs help</string>
+    <string name="editTextTextPersonName2">Room number</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_deviceview">deviceview</string>
+
+</resources>
