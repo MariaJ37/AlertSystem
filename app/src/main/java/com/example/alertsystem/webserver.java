@@ -56,6 +56,7 @@ import java.util.List;
         final static String webserverUrl = "http://justinapt1.asuscomm.com";
 
         @RequiresApi(api = Build.VERSION_CODES.N)
+
         public int getPercent(int roomCode) throws IOException {
             URL url = null;
 
@@ -75,10 +76,15 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
+            String s = "";
 
-            String s = store.substring(store.indexOf("percentage:") + 11);
-            s = s.substring(0, s.indexOf("/"));
-            s = s.replace(" ", "");
+            try {
+                s = store.substring(store.indexOf("percentage:") + 11);
+                s = s.substring(0, s.indexOf("/"));
+                s = s.replace(" ", "");
+            } catch (Exception e) {
+                return 0;
+            }
 
             int percentage = Integer.parseInt(s);
             in.close();
@@ -167,6 +173,21 @@ import java.util.List;
             return percentages;
         }
 
+        public static void setPercent(int roomCode, int percent) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/insUpdPerc.php?roomCode="+roomCode+"&percentage="+percent);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+            in.close();
+        }
+
         public static String getTimeOfMov(int roomCode) throws IOException {
             URL url = null;
 
@@ -186,12 +207,127 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
+            String s = "";
 
-            String s = store.substring(store.indexOf("timeOfMov:") + 11);
-            s = s.substring(0, s.indexOf("/"));
+            try {
+                s = store.substring(store.indexOf("timeOfMov:") + 11);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return "Field Not Set";
+            }
 
             in.close();
             return s;
+        }
+
+        public static int[] getMovRoomCodes() throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selAllLMov.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+
+            List<Integer> list = new ArrayList<Integer>();
+
+            while(store.contains("<br>")) {
+                String s = store.substring(store.indexOf("roomCode:") + 9);
+                s = s.substring(0, s.indexOf("/"));
+                s = s.replace(" ", "");
+                int temp = Integer.parseInt(s);
+                list.add(temp);
+                store = store.substring(store.indexOf("<br>")+4);
+            }
+            int size = list.size();
+            int[] roomCodes = new int[size];
+
+            for(int i = 0; i < size; i++) {
+                roomCodes[i] = list.get(i);
+            }
+
+            in.close();
+            return roomCodes;
+        }
+
+        public static String[] getAllLMov() throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selAllLMov.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+
+            List<String> list = new ArrayList<String>();
+
+            while(store.contains("<br>")) {
+                String s = store.substring(store.indexOf("timeOfMov:") + 11);
+                s = s.substring(0, s.indexOf("/"));
+                list.add(s);
+                store = store.substring(store.indexOf("<br>")+4);
+            }
+            int size = list.size();
+            String[] LMov = new String[size];
+
+            for(int i = 0; i < size; i++) {
+                LMov[i] = list.get(i);
+            }
+
+            in.close();
+            return LMov;
+        }
+
+        public static void setLMov(int roomCode, String timeOf) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/insUpdLMov.php?roomCode="+roomCode+"&timeOfMov="+timeOf);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+            in.close();
+        }
+
+        public static void setLMovNoDate(int roomCode) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/insUpdLMovNoDate.php?roomCode="+roomCode);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+            in.close();
         }
 
         public static String getTimeOfWifi(int roomCode) throws IOException {
@@ -213,12 +349,126 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
+            String s = "";
 
-            String s = store.substring(store.indexOf("lastPing:") + 10);
-            s = s.substring(0, s.indexOf("/"));
-
+            try {
+                s = store.substring(store.indexOf("lastPing:") + 10);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return "Field Not Set";
+            }
             in.close();
             return s;
+        }
+
+        public static int[] getWifiRoomCodes() throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selAllWifiS.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+
+            List<Integer> list = new ArrayList<Integer>();
+
+            while(store.contains("<br>")) {
+                String s = store.substring(store.indexOf("roomCode:") + 9);
+                s = s.substring(0, s.indexOf("/"));
+                s = s.replace(" ", "");
+                int temp = Integer.parseInt(s);
+                list.add(temp);
+                store = store.substring(store.indexOf("<br>")+4);
+            }
+            int size = list.size();
+            int[] roomCodes = new int[size];
+
+            for(int i = 0; i < size; i++) {
+                roomCodes[i] = list.get(i);
+            }
+
+            in.close();
+            return roomCodes;
+        }
+
+        public static String[] getAllWifiS() throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selAllWifiS.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+
+            List<String> list = new ArrayList<String>();
+
+            while(store.contains("<br>")) {
+                String s = store.substring(store.indexOf("lastPing:") + 10);
+                s = s.substring(0, s.indexOf("/"));
+                list.add(s);
+                store = store.substring(store.indexOf("<br>")+4);
+            }
+            int size = list.size();
+            String[] lastPing = new String[size];
+
+            for(int i = 0; i < size; i++) {
+                lastPing[i] = list.get(i);
+            }
+
+            in.close();
+            return lastPing;
+        }
+
+        public static void setWifiS(int roomCode, String timeOf) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/insertWifiS.php?roomCode="+roomCode+"&lastPing="+timeOf);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+            in.close();
+        }
+
+        public static void setWifiSNoDate(int roomCode) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/insertWifiSNoDate.php?roomCode="+roomCode);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+            in.close();
         }
 
         public static String getPatientName (int roomCode) throws IOException {
@@ -240,10 +490,14 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
+            String s = "";
 
-            String s = store.substring(store.indexOf("patientName:") + 13);
-            s = s.substring(0, s.indexOf("/"));
-
+            try {
+                s = store.substring(store.indexOf("patientName:") + 13);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return "Field Not Set";
+            }
             in.close();
             return s;
         }
@@ -267,10 +521,14 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
+            String s = "";
 
-            String s = store.substring(store.indexOf("address:") + 9);
-            s = s.substring(0, s.indexOf("/"));
-
+            try {
+                s = store.substring(store.indexOf("address:") + 9);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return "Field Not Set";
+            }
             in.close();
             return s;
         }
@@ -294,10 +552,14 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
+            String s = "";
 
-            String s = store.substring(store.indexOf("phone:") + 7);
-            s = s.substring(0, s.indexOf("/"));
-
+            try {
+                s = store.substring(store.indexOf("phone:") + 7);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return "Field Not Set";
+            }
             in.close();
             return s;
         }
@@ -321,10 +583,14 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
+            String s = "";
 
-            String s = store.substring(store.indexOf("emergencyName:") + 15);
-            s = s.substring(0, s.indexOf("/"));
-
+            try {
+                s = store.substring(store.indexOf("emergencyName:") + 15);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return "Field Not Set";
+            }
             in.close();
             return s;
         }
@@ -348,10 +614,14 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
+            String s = "";
 
-            String s = store.substring(store.indexOf("emergencyPhone:") + 16);
-            s = s.substring(0, s.indexOf("/"));
-
+            try {
+                s = store.substring(store.indexOf("emergencyPhone:") + 16);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return "Field Not Set";
+            }
             in.close();
             return s;
         }
@@ -377,13 +647,61 @@ import java.util.List;
             }
 
             List<Integer> list = new ArrayList<Integer>();
+            try {
+                while (store.contains("<br>")) {
+                    String s = store.substring(store.indexOf("aID:") + 5);
+                    s = s.substring(0, s.indexOf("/"));
+                    int temp = Integer.parseInt(s);
+                    list.add(temp);
+                    store = store.substring(store.indexOf("<br>") + 4);
+                }
+            } catch (Exception e) {
+                int[] empty = new int[1];
+                return empty;
+            }
+            int size = list.size();
+            int[] aIDS = new int[size];
 
-            while(store.contains("<br>")) {
-                String s = store.substring(store.indexOf("aID:") + 5);
-                s = s.substring(0, s.indexOf("/"));
-                int temp = Integer.parseInt(s);
-                list.add(temp);
-                store = store.substring(store.indexOf("<br>")+4);
+            for(int i = 0; i < size; i++){
+                aIDS[i] = list.get(i);
+            }
+
+            in.close();
+            return aIDS;
+        }
+
+        public int[] getAllAlertIDS () throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selAllAlert.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+
+            List<Integer> list = new ArrayList<Integer>();
+            try {
+                while (store.contains("<br>")) {
+                    String s = store.substring(store.indexOf("aID:") + 5);
+                    s = s.substring(0, s.indexOf("/"));
+                    int temp = Integer.parseInt(s);
+                    list.add(temp);
+                    store = store.substring(store.indexOf("<br>") + 4);
+                }
+            } catch (Exception e) {
+                int[] empty = new int[1];
+                return empty;
             }
             int size = list.size();
             int[] aIDS = new int[size];
@@ -415,9 +733,14 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
-            String s = store.substring(store.indexOf("roomCode:") + 10);
-            s = s.substring(0, s.indexOf("/"));
+            String s = "";
 
+            try {
+                s = store.substring(store.indexOf("roomCode:") + 10);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return 0;
+            }
             int ID = Integer.parseInt(s);
 
             in.close();
@@ -439,13 +762,19 @@ import java.util.List;
 
             String inputLine;
             String store = "";
+
             while ((inputLine = in.readLine()) != null) {
                 System.out.println(inputLine);
                 store = inputLine;
             }
-            String s = store.substring(store.indexOf("alert:") + 7);
-            s = s.substring(0, s.indexOf("/"));
+            String s = "";
 
+            try {
+                s = store.substring(store.indexOf("alert:") + 7);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return "Field Not Set";
+            }
 
             in.close();
             return s;
@@ -470,9 +799,14 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
-            String s = store.substring(store.indexOf("timeOf:") + 8);
-            s = s.substring(0, s.indexOf("/"));
+            String s = "";
 
+            try {
+                s = store.substring(store.indexOf("timeOf:") + 8);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return "Field Not Set";
+            }
 
             in.close();
             return s;
@@ -497,9 +831,14 @@ import java.util.List;
                 System.out.println(inputLine);
                 store = inputLine;
             }
-            String s = store.substring(store.indexOf("dismissed:") + 11);
-            s = s.substring(0, s.indexOf("/"));
+            String s = "";
 
+            try {
+                s = store.substring(store.indexOf("dismissed:") + 11);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return false;
+            }
             boolean dismissed = false;
             if(s == "1") {
                 dismissed = true;
@@ -509,6 +848,26 @@ import java.util.List;
 
             in.close();
             return dismissed;
+        }
+
+        public static void updateAlertDismissed(boolean dismissed, int aID) throws IOException {
+            URL url = null;
+            int disInt = 0;
+            if (dismissed) {
+                disInt = 1;
+            } else {
+                disInt = 0;
+            }
+            try {
+                url = new URL(webserverUrl+"/updateAlertDismissed.php?aID="+aID+"&dismissed="+disInt);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+            in.close();
         }
 
         //******
@@ -529,7 +888,7 @@ import java.util.List;
             );
             in.close();
         }
-
+// Hard Coded Alert Test function
         public static void addAlert() throws IOException {
             URL url = null;
 
@@ -567,13 +926,18 @@ import java.util.List;
 
             List<Integer> list = new ArrayList<Integer>();
 
-            while(store.contains("<br>")) {
-                String s = store.substring(store.indexOf("roomCode:") + 9);
-                s = s.substring(0, s.indexOf("/"));
-                s = s.replace(" ", "");
-                int temp = Integer.parseInt(s);
-                list.add(temp);
-                store = store.substring(store.indexOf("<br>")+4);
+            try {
+                while (store.contains("<br>")) {
+                    String s = store.substring(store.indexOf("roomCode:") + 9);
+                    s = s.substring(0, s.indexOf("/"));
+                    s = s.replace(" ", "");
+                    int temp = Integer.parseInt(s);
+                    list.add(temp);
+                    store = store.substring(store.indexOf("<br>") + 4);
+                }
+            } catch (Exception e) {
+                int[] empty = new int[1];
+                return empty;
             }
             int size = list.size();
             int[] percentages = new int[size];
@@ -657,4 +1021,44 @@ import java.util.List;
             }
         }
 
+        public static int[] getAllRoomCodesAllTables() throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selectAllRoomCodes.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+
+            List<Integer> list = new ArrayList<Integer>();
+
+            while(store.contains("<br>")) {
+                String s = store.substring(store.indexOf("roomCode:") + 9);
+                s = s.substring(0, s.indexOf("/"));
+                s = s.replace(" ", "");
+                int temp = Integer.parseInt(s);
+                list.add(temp);
+                store = store.substring(store.indexOf("<br>")+4);
+            }
+            int size = list.size();
+            int[] roomCodes = new int[size];
+
+            for(int i = 0; i < size; i++) {
+                roomCodes[i] = list.get(i);
+            }
+
+            in.close();
+            return roomCodes;
+        }
     }
