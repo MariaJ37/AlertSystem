@@ -670,7 +670,7 @@ import java.util.List;
             return aIDS;
         }
 
-        public int[] getAllAlertIDS () throws IOException {
+        public static int[] getAllAlertIDS () throws IOException {
             URL url = null;
 
             try {
@@ -870,10 +870,7 @@ import java.util.List;
             in.close();
         }
 
-        //******
-        //check functions with below, all of them are not hardcoded except add alert
 
-        //int roomCode
         public static void delPatientinfo(int roomCode) throws IOException {
             URL url = null;
 
@@ -982,44 +979,45 @@ import java.util.List;
             int ent = arr.length;
             return ent;
         }
-        public static void throwCode(int roomCode) throws IOException {
-            String temp = Integer.toString(roomCode);
-            setPatientinfo(temp,"Test","Test",1000,"Test","Test");
+
+        public static int getenumofaID() throws IOException {
+            int[] arr = getAllAlertIDS();
+            int ent = arr.length;
+            return ent;
         }
 
-        public static int fetchCode() throws IOException {
-            String temp = getPatientName(1000);
-            int roomCode = Integer.parseInt(temp);
-            delPatientinfo(1000);
-            return roomCode;
+        public static String[] getaIDandName() throws IOException {
+            int[] arr = getAllAlertIDS();
+            String[] lines = new String[arr.length];
+
+            for (int i = 0; i < arr.length; i++) {
+                lines[i] = "Room Code: " + getAlertRoomCode(arr[i]) + "       Type: " + getAlertAlert(arr[i]);
+            }
+            return lines;
         }
 
-        public static boolean alertchecker() throws IOException{
-            int [] arr = getcodesallpatientInfo();
-            for (int i = 0; i < arr.length; i++){
-                if (arr[i] == 1) {
-                    return true;
+
+        public static int[] alertchecker() throws IOException {
+            int[] arr = getAllAlertIDS();
+            int[] num = new int[arr.length];
+
+            boolean dis;
+            int j = 0;
+
+            for (int i = 0; i < arr.length; i++) {
+                dis = getAlertDismissed(arr[i]);
+
+                if (dis == false) {
+                    num[j] = arr[i];
+                    j++;
                 }
 
-                else{
-                    return false;
-                }
             }
 
-            return false;
+
+            return num;
         }
 
-
-        public static boolean alertcheckertest() throws IOException{
-            String test = getPatientName(999);
-            if (test == "Test") {
-                return true;
-            }
-
-            else {
-                return false;
-            }
-        }
 
         public static int[] getAllRoomCodesAllTables() throws IOException {
             URL url = null;

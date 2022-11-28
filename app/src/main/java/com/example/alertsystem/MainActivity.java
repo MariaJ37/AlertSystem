@@ -1,4 +1,5 @@
 package com.example.alertsystem;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        stopService(new Intent(MainActivity.this,BackgroundService.class));
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -55,15 +57,48 @@ public class MainActivity extends AppCompatActivity {
                  }
         });
 
-        String []s= new String[0];
+        int length = 0;
         try {
-            s = new String[]{webserver.getAlertAlert(1), "Time: "+webserver.getAlertTimeOf(1), String.valueOf(webserver.getAlertRoomCode(1))};
+            length = webserver.getenumofaID();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        String[] s = new String[length];
+        try {
+            s = webserver.getaIDandName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         lvA=(ListView)findViewById(R.id.alert_notification_on_main);
         ArrayAdapter<String> adapter=new ArrayAdapter<>(MainActivity.this,R.layout.list_item,R.id.list_content,s);
         lvA.setAdapter(adapter);
+        lvA.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int pos = lvA.getPositionForView(view);
+                int j = 0;
+
+                try {
+                    j = webserver.getenumofaID();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int[] ref = new int[j];
+
+                try {
+                    ref = webserver.getAllAlertIDS();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int aid = ref[pos];
+                String aide = Integer.toString(aid);
+                //Navigate to patient info(InfoViewActivity)
+                Intent pass = new Intent(MainActivity.this,Alert_view.class);
+                pass.putExtra("aid",aide);
+                startActivity(pass);
+            }
+        });
 
         int len = 0;
         try {
@@ -99,11 +134,11 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 int roomCode = ref[pos];
-                try {
-                    webserver.throwCode(roomCode);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                String room = Integer.toString(roomCode);
+                //Navigate to patient info(InfoViewActivity)
+                Intent pass = new Intent(MainActivity.this,InfoViewActivity.class);
+                pass.putExtra("code",room);
+                startActivity(pass);
             }
         });
 

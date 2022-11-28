@@ -2,6 +2,7 @@ package com.example.alertsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -19,19 +20,17 @@ public class InfoViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_view);
-
-
         if(Build.VERSION.SDK_INT>9){
             StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        int roomCode = 0;
 
-        try {
-            roomCode = webserver.fetchCode();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Intent pass = getIntent();
+        String room = pass.getStringExtra("code");
+
+        int roomCode = Integer.parseInt(room);
+
+
         String m = Integer.toString(roomCode);
         String [] d= new String[0];
         try {
