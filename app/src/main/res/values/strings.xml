@@ -1,6 +1,6 @@
 <resources>
     <!-- Strings used for the menu_main.xml file-->
-    <string name="app_name">System Master</string>
+    <string name="app_name">Alert System</string>
     <string name="add_new_device">Add new device</string>
     <string name="remove_device">Remove device</string>
     <string name="App_user">App user</string>

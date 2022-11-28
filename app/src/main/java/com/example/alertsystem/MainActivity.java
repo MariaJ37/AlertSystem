@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.pInfo:
-                Intent pi = new Intent(getApplicationContext(),PatientInfo.class);
+                Intent pi = new Intent(getApplicationContext(),InfoViewActivity.class);
                 startActivity(pi);
                 //Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
                 break;

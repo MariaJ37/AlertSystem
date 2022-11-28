@@ -23,6 +23,15 @@ public class Alert_view extends AppCompatActivity {
         setContentView(R.layout.activity_alert_view);
         getSupportActionBar().hide();
 
+        findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+                finish();
+            }
+        });
+
+
         if(Build.VERSION.SDK_INT>9){
             StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);

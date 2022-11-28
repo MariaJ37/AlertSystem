@@ -34,6 +34,14 @@ public class RemoveDevice extends AppCompatActivity {
         }
         setContentView(R.layout.activity_remove_device);
         getSupportActionBar().hide();
+        findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+                finish();
+            }
+        });
+
         int len = 0;
         try {
             len = webserver.getenumofEnt();

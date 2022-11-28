@@ -61,7 +61,7 @@ public class BackgroundService extends Service {
     private void createNotification() throws IOException {
         int[] num = alertchecker();
         Intent notifyint = new Intent(this,MainActivity.class);
-        PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,0);
+        //PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,0);
         for (int i = 0; i < num.length; i++) {
             int aid = num [i];
             String type = getAlertAlert(aid);
@@ -72,8 +72,8 @@ public class BackgroundService extends Service {
             builder.setContentTitle("Alert: " + type + " in room " + room);
             builder.setContentText(type + " recorded at: " + last);
             builder.setAutoCancel(true);
-            builder.setSmallIcon(R.drawable.ic_launcher_background);
-            builder.setContentIntent(pending);
+            builder.setSmallIcon(R.drawable.ic_baseline_warning_24_notification);
+            //builder.setContentIntent(pending);
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
             managerCompat.notify(1,builder.build());
         }

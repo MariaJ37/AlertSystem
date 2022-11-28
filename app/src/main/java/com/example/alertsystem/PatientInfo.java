@@ -37,6 +37,15 @@ public class PatientInfo extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+        findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+                finish();
+            }
+        });
+
+
         Save = (Button) findViewById(R.id.SaveButtonPatient);
         addName = (EditText) findViewById(R.id.Patient_Name);
         addAdd = (EditText) findViewById(R.id.Patient_Address);
