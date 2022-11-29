@@ -26,6 +26,7 @@ public class PatientInfo extends AppCompatActivity {
     //This is Edit info class, Referenced from the application design.
     private Button Save;
     private EditText addName,addAdd,addPhone,addRoom,addEname,addEphone;
+    boolean isAllFieldsChecked=false;
 
     //****** check to see if anything is different here
     @Override
@@ -45,7 +46,6 @@ public class PatientInfo extends AppCompatActivity {
             }
         });
 
-
         Save = (Button) findViewById(R.id.SaveButtonPatient);
         addName = (EditText) findViewById(R.id.Patient_Name);
         addAdd = (EditText) findViewById(R.id.Patient_Address);
@@ -54,11 +54,12 @@ public class PatientInfo extends AppCompatActivity {
         addEphone = (EditText) findViewById(R.id.Emergency_Phone);
         addRoom = (EditText) findViewById(R.id.Patient_Room);
 
-
-
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isAllFieldsChecked = CheckAllFields();
+                //If All the fields are fild then do this
+                if (isAllFieldsChecked){
                 String name = addName.getText().toString();
                 String address = addAdd.getText().toString();
                 String ename = addEname.getText().toString();
@@ -66,17 +67,46 @@ public class PatientInfo extends AppCompatActivity {
                 String ephone = addEphone.getText().toString();
                 String roomtmp = addRoom.getText().toString();
                 int room = Integer.parseInt(roomtmp);
-
                 try {
-                    webserver.setPatientinfo(name,address,ename,room,ephone,phone);
+                    webserver.setPatientinfo(name, address, ename, room, ephone, phone);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Intent v =new Intent(getApplicationContext(),MainActivity.class);
+                Intent v = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(v);
             }
+        }
         });
 
+    }
+
+    //Checking if the field is empty, if it is, it shows "This Field is required"
+    private boolean CheckAllFields(){
+        if (addName.length()==0){
+            addName.setError("This Field is required");
+            return false;
+        }
+        if (addAdd.length()==0){
+            addAdd.setError("This Field is required");
+            return false;
+        }
+        if (addPhone.length()==0){
+            addPhone.setError("This Field is required");
+            return false;
+        }
+        if (addRoom.length()==0){
+            addRoom.setError("This Field is required");
+            return false;
+        }
+        if(addEname.length()==0){
+            addEname.setError("This Field is required");
+            return false;
+        }
+        if(addEphone.length()==0){
+            addEphone.setError("This Field is required");
+            return false;
+        }
+        return true;
     }
 }

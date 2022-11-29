@@ -59,13 +59,7 @@ public class RemoveDevice extends AppCompatActivity {
         lv=(ListView) findViewById(R.id.remove_devices_listview);
         adapter=new ArrayAdapter<String>(RemoveDevice.this,R.layout.list_item,R.id.list_content,d);
         lv.setAdapter(adapter);
-        //I tried this and somehow it doesn't work the app closes
-     /*   lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(RemoveDevice.this,listItems.get(i)+" Was clicked",Toast.LENGTH_SHORT).show();
-            }
-        });*/
+
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

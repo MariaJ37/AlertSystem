@@ -27,6 +27,17 @@
             android:src="@drawable/ic_back"
             app:tint="@color/white" />
 
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TEXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Patient Information"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
     </LinearLayout>
 
 
@@ -62,7 +73,8 @@
             style="@style/TEXT"
             android:textColorHint="#959594"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,7 +95,8 @@
             android:id="@+id/Patient_Address"
             style="@style/TEXT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890 -.#"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,7 +118,9 @@
             android:id="@+id/Patient_Phone"
             style="@style/TEXT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:digits="1234567890"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +141,9 @@
             android:id="@+id/Patient_Room"
             style="@style/TEXT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:digits="1234567890"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -162,7 +179,8 @@
             android:id="@+id/Emergency_name"
             style="@style/TEXT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -183,7 +201,10 @@
             android:id="@+id/Emergency_Phone"
             style="@style/TEXT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:digits="1234567890"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -209,7 +230,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:hint="Room Number"
+        android:hint="Device"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView">
@@ -218,7 +239,9 @@
             android:id="@+id/device_name"
             style="@style/TEXT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:digits="1234567890"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
