@@ -1059,4 +1059,188 @@ import java.util.List;
             in.close();
             return roomCodes;
         }
+
+        public static int getPercentParameter() throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selectParameters.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+            String s = "";
+            try {
+                s = store.substring(store.indexOf("percentPara:") + 13);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return 0;
+            }
+
+            int percentPara = Integer.parseInt(s);
+
+            return percentPara;
+        }
+
+        public static int getWifiParameter() throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selectParameters.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+            String s = "";
+            try {
+                s = store.substring(store.indexOf("pingPara:") + 10);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return 0;
+            }
+
+            int pingPara = Integer.parseInt(s);
+
+            return pingPara;
+        }
+
+        public static int getMovementParameter() throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selectParameters.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+            String s = "";
+            try {
+                s = store.substring(store.indexOf("movePara:") + 10);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return 0;
+            }
+
+            int movePara = Integer.parseInt(s);
+
+            return movePara;
+        }
+
+        public static int getNotificationParameter() throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/selectParameters.php");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+
+            String inputLine;
+            String store = "";
+            while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
+                store = inputLine;
+            }
+            String s = "";
+            try {
+                s = store.substring(store.indexOf("notificationPara:") + 18);
+                s = s.substring(0, s.indexOf("/"));
+            } catch (Exception e) {
+                return 0;
+            }
+
+            int notifPara = Integer.parseInt(s);
+
+            return notifPara;
+        }
+
+        public static void setPercentParameter(int percent) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/insertPercPara.php?percPara="+percent);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+        }
+
+        public static void setWifiParameter(int ping) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/insertPingPara.php?pingPara="+ping);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+        }
+
+        public static void setMoveParameter(int move) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/insertMovePara.php?movePara="+move);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+        }
+
+        public static void setNotificationParameter(int notification) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/insertNotificationPara.php?notificationPara="+notification);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+        }
     }
