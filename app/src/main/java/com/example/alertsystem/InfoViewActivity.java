@@ -21,6 +21,7 @@ public class InfoViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_view);
+        getSupportActionBar().hide();
         if(Build.VERSION.SDK_INT>9){
             StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -64,7 +65,7 @@ public class InfoViewActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter1=new ArrayAdapter<>(InfoViewActivity.this, R.layout.list_item,R.id.list_content,s);
         lve.setAdapter(adapter1);
 
-        /*String []t= new String[0];
+        String []t= new String[0];
         try {
             t = new String[]{"Last Movement: "+webserver.getTimeOfMov(404),"Wifi Connection: "+webserver.getTimeOfWifi(404)};
         } catch (IOException e) {
@@ -72,7 +73,6 @@ public class InfoViewActivity extends AppCompatActivity {
         }
         status=(ListView)findViewById(R.id.Movement_wifi);
         ArrayAdapter<String>adapter2=new ArrayAdapter<>(InfoViewActivity.this, R.layout.list_item,R.id.list_content,t);
-        status.setAdapter(adapter2);*/
-        getSupportActionBar().hide();
+        status.setAdapter(adapter2);
     }
 }

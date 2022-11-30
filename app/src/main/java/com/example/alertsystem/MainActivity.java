@@ -167,31 +167,28 @@ public class MainActivity extends AppCompatActivity {
             case R.id.add_new_device:
                 Intent u = new Intent(getApplicationContext(),PatientInfo.class);
                 startActivity(u);
-                //Toast.makeText(getApplicationContext(),"Add devices was clicked",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.remove_device:
                 Intent v =new Intent(getApplicationContext(),RemoveDevice.class);
                 startActivity(v);
-                //Toast.makeText(getApplicationContext(),"Remove devices was clicked",Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.update_device:
                 Intent y = new Intent(getApplicationContext(),Update_info.class);
                 startActivity(y);
-                //Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.pInfo:
+                //We don't use this menu item
+            /*case R.id.pInfo:
                 Intent pi = new Intent(getApplicationContext(),InfoViewActivity.class);
                 startActivity(pi);
-                //Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
-                break;
+                Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
+                break;*/
 
             case R.id.iV:
                 DialogeClass.showDD(this,"Cannot open Info View: Some Error to be fix in Webserver code");
 //                Intent iv = new Intent(getApplicationContext(),InfoViewActivity.class);
 //                startActivity(iv);
-                //Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.settings:
