@@ -143,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 String room = Integer.toString(roomCode);
                 //Navigate to patient info(InfoViewActivity)
                 Intent pass = new Intent(MainActivity.this,InfoViewActivity.class);
+                Intent code = new Intent(MainActivity.this,RemoveDevice.class);
                 pass.putExtra("code",room);
+                code.putExtra("roomCode",room);
                 startActivity(pass);
             }
         });
@@ -185,11 +187,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
                 break;*/
 
-            case R.id.iV:
+            /*case R.id.iV:
                 DialogeClass.showDD(this,"Cannot open Info View: Some Error to be fix in Webserver code");
 //                Intent iv = new Intent(getApplicationContext(),InfoViewActivity.class);
 //                startActivity(iv);
-                break;
+                break;*/
 
             case R.id.settings:
                 Intent ss = new Intent(getApplicationContext(),ThemesActivity.class);

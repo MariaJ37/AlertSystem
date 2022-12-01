@@ -3,10 +3,11 @@ package com.example.alertsystem;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.widget.AdapterView;
 
 public interface DialogeClass {
-    public static void showDD(Context context, String msg){
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+    public static void showDD(AdapterView.OnItemClickListener context, String msg){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder((Context) context);
         builder1.setMessage(msg);
         builder1.setCancelable(true);
 

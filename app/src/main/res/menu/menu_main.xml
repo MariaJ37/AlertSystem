@@ -13,12 +13,12 @@
         android:id="@+id/update_device"
         android:title="Update device" />
 
-    <item
+    <!--<item
         android:id="@+id/pInfo"
         android:title="Patient Info" />
     <item
         android:id="@+id/iV"
-        android:title="Info View" />
+        android:title="Info View" />-->
 
     <item
         android:id="@+id/settings"
