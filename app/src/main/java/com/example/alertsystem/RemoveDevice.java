@@ -3,6 +3,8 @@ package com.example.alertsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +12,6 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class RemoveDevice extends AppCompatActivity {
-    Button delete;
+    //Button delete;
     EditText editText;
     ListView lv;
     ArrayList<String> listItems;
@@ -41,6 +42,10 @@ public class RemoveDevice extends AppCompatActivity {
                 finish();
             }
         });
+       /* Intent code =getIntent();
+        String room = code.getStringExtra("roomCode");
+        int roomCode=Integer.parseInt(room);*/
+
 
         int len = 0;
         try {
@@ -54,28 +59,70 @@ public class RemoveDevice extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        delete=(Button)findViewById(R.id.DeleteButton);
-        editText=(EditText)findViewById(R.id.editTextPhone);
+        //delete=(Button)findViewById(R.id.DeleteButton);
+        //editText=(EditText)findViewById(R.id.editTextPhone);
         lv=(ListView) findViewById(R.id.remove_devices_listview);
         adapter=new ArrayAdapter<String>(RemoveDevice.this,R.layout.list_item,R.id.list_content,d);
         lv.setAdapter(adapter);
-
-        delete.setOnClickListener(new View.OnClickListener() {
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                String getroom = editText.getText().toString();
-                int i = Integer.parseInt(getroom);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int pos = lv.getPositionForView(view);
+                int j = 0;
 
                 try {
-                    webserver.delPatientinfo(i);
+                    j = webserver.getenumofEnt();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Intent v =new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(v);
+                int[] ref = new int[j];
+
+                try {
+                    ref = webserver.getcodesallpatientInfo();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int roomCode = ref[pos];
+
+                new  AlertDialog.Builder(RemoveDevice.this)
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setTitle("Are you sure?")
+                        .setMessage("you want to delete patient")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int s) {
+                                try {
+                                    webserver.delPatientinfo(roomCode);
+                                    //Toast.makeText(RemoveDevice.this, "In webserverdelpatient",Toast.LENGTH_SHORT).show();
+                                    adapter.notifyDataSetChanged();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No",null)
+                        .show();
 
             }
         });
 
+       /*delete.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               String getroom = editText.getText().toString();
+               int i = Integer.parseInt(getroom);
+
+               try {
+                   webserver.delPatientinfo(i);
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+               Intent v =new Intent(getApplicationContext(),MainActivity.class);
+               startActivity(v);
+
+           }
+       });*/
+
     }
 }
+

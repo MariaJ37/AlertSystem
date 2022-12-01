@@ -1243,4 +1243,106 @@ import java.util.List;
                     new InputStreamReader(url.openStream())
             );
         }
+
+        public static String[] iDnameaid(boolean a) throws IOException {
+            int[] arr = getAllAlertIDS();
+            int cnt = 0;
+
+            if (a == false) { //non dissmissed
+                int len = iDelength(false);
+                String[] lines = new String[len];
+                for (int i = 0; i < arr.length; i++) {
+                    if (getAlertDismissed(arr[i]) == false) {
+                        lines[cnt] = "Room Code: " + getAlertRoomCode(arr[i]) + "       Type: " + getAlertAlert(arr[i]);
+                        cnt++;
+                    }
+                }
+                return lines;
+            }
+
+            else { //dissmissed
+                int len = iDelength(true);
+                String[] lines = new String[len];
+                for (int i = 0; i < arr.length; i++) {
+                    if (getAlertDismissed(arr[i]) == true) {
+                        lines[cnt] = "Room Code: " + getAlertRoomCode(arr[i]) + "       Type: " + getAlertAlert(arr[i]);
+                        cnt++;
+                    }
+                }
+                return lines;
+            }
+        }
+
+
+        public static int iDelength(boolean a) throws IOException {
+            int[] arr = getAllAlertIDS();
+            int num = 0;
+
+            if (a == false) { //non dissmissed
+                for (int i = 0; i < arr.length; i++) {
+                    if (getAlertDismissed(arr[i]) == false) {
+                        num++;
+                    }
+                }
+                return num;
+            }
+
+            else { //dissmissed
+                for (int i = 0; i < arr.length; i++) {
+                    if (getAlertDismissed(arr[i]) == true) {
+                        num++;
+                    }
+                }
+                return num;
+            }
+        }
+
+        public static int[] iDepos(boolean a) throws IOException {
+            int[] arr = getAllAlertIDS();
+            int cnt = 0;
+
+            if (a == false) { //non dissmissed
+                int len = iDelength(false);
+                int num[] = new int[len];
+                for (int i = 0; i < arr.length; i++) {
+                    if (getAlertDismissed(arr[i]) == false) {
+                        num[cnt] = arr[i];
+                        cnt++;
+                    }
+
+                }
+                return num;
+            }
+
+            else { //dissmissed
+                int len = iDelength(true);
+                int num[] = new int[len];
+                for (int i = 0; i < arr.length; i++) {
+                    if (getAlertDismissed(arr[i]) == true) {
+                        num[cnt] = arr[i];
+                        cnt++;
+                    }
+                }
+                return num;
+            }
+        }
+
+        public static void upPatientinfo(String patientName, String address,String emergencyName, int roomCode,String emergencyPhone, String phone) throws IOException {
+            URL url = null;
+
+            try {
+                url = new URL(webserverUrl+"/updatePatientInfo.php?roomCode="+roomCode+"&patientName=\""+patientName+"\"&address=\""+address+"\"&emergencyName=\""+emergencyName+"\"&emergencyPhone=\""+emergencyPhone+"\"&phone=\""+phone+"\"");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(url.openStream())
+            );
+            in.close();
+        }
+
+
+
+
     }

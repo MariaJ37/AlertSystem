@@ -1,5 +1,6 @@
 package com.example.alertsystem;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static com.example.alertsystem.webserver.alertchecker;
 import static com.example.alertsystem.webserver.getAlertAlert;
 import static com.example.alertsystem.webserver.getAlertRoomCode;
@@ -63,20 +64,21 @@ public class BackgroundService extends Service {
     //create customized notfications for each alert in DB
     private void createNotification() throws IOException {
         int[] num = alertchecker();
-        Intent notifyint = new Intent(this,MainActivity.class);
-        //PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,0);
         for (int i = 0; i < num.length; i++) {
             int aid = num [i];
             String type = getAlertAlert(aid);
             int room = getAlertRoomCode(aid);
             String last = getAlertTimeOf(aid);
+            Intent notifyint = new Intent(this,Alert_view.class);
+            notifyint.putExtra("aid",aid);
+            PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,FLAG_IMMUTABLE);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this,Channel_Name);
             builder.setContentTitle("Alert: " + type + " in room " + room);
             builder.setContentText(type + " recorded at: " + last);
             builder.setAutoCancel(true);
-            builder.setSmallIcon(R.drawable.ic_baseline_warning_24_notification);
-            //builder.setContentIntent(pending);
+            builder.setSmallIcon(R.drawable.ic_launcher_background);
+            builder.setContentIntent(pending);
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
             managerCompat.notify(1,builder.build());
         }
