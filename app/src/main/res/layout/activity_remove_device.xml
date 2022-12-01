@@ -68,20 +68,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/removedeviceListView" />
 
-    <Button
-        android:id="@+id/DeleteButton"
-        style="@style/BUTTON"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/DeleteButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Patient_Name1"
-        tools:ignore="DuplicateSpeakableTextCheck" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Patient_Name1"
         style="@style/LoginTextInputLayoutStyle"
@@ -94,17 +80,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/remove_devices_listview"
-        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPhone"
-            style="@style/TEXT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="#959594"
-            android:inputType="number"
-            android:digits="1234567890"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+        tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

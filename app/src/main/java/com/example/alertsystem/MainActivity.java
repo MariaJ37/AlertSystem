@@ -37,13 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         stopService(new Intent(MainActivity.this,BackgroundService.class));
 
-        //Foreground
-     /*   ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.FOREGROUND_SERVICE}, PackageManager.PERMISSION_GRANTED);
-        Context context =getApplicationContext();
-        Intent foreground = new Intent(this,ForegroundService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(foreground);
-        }*/
+
 
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -58,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent v =new Intent(getApplicationContext(),RemoveDevice.class);
+                Intent v =new Intent(getApplicationContext(),AllAlertsView.class);
                 startActivity(v);
                  }
         });
@@ -165,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         //Add device and remove device were both put on on the same activity easier access
         switch (item.getItemId()) {
             case R.id.add_new_device:
-                Intent u = new Intent(getApplicationContext(),PatientInfo.class);
+                Intent u = new Intent(getApplicationContext(),AvailableRooms.class);
                 startActivity(u);
                 break;
             case R.id.remove_device:
@@ -178,18 +172,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(y);
                 break;
 
-                //We don't use this menu item
-            /*case R.id.pInfo:
-                Intent pi = new Intent(getApplicationContext(),InfoViewActivity.class);
-                startActivity(pi);
-                Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
-                break;*/
-
-            case R.id.iV:
-                DialogeClass.showDD(this,"Cannot open Info View: Some Error to be fix in Webserver code");
-//                Intent iv = new Intent(getApplicationContext(),InfoViewActivity.class);
-//                startActivity(iv);
-                break;
 
             case R.id.settings:
                 Intent ss = new Intent(getApplicationContext(),ThemesActivity.class);
