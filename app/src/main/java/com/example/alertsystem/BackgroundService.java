@@ -8,6 +8,7 @@ import static com.example.alertsystem.webserver.createWifiAlert;
 import static com.example.alertsystem.webserver.getAlertAlert;
 import static com.example.alertsystem.webserver.getAlertRoomCode;
 import static com.example.alertsystem.webserver.getAlertTimeOf;
+import static com.example.alertsystem.webserver.getNotificationParameter;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -75,9 +76,7 @@ public class BackgroundService extends Service {
             String last = getAlertTimeOf(aid);
             if (room != 0) {
                 String aide = Integer.toString(aid);
-                Intent notifyint = new Intent(this,Alert_view.class);
-                notifyint.setFlags(Intent. FLAG_ACTIVITY_CLEAR_TOP | Intent. FLAG_ACTIVITY_SINGLE_TOP ) ;
-                notifyint.putExtra("aid",aide);
+                Intent notifyint = new Intent(this,MainActivity.class);
                 PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,FLAG_IMMUTABLE);
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this,Channel_Name);
@@ -140,7 +139,7 @@ public class BackgroundService extends Service {
                     e.printStackTrace();
                 }
             }
-        },0,60000);
+        },0,getNotificationParameter());
     }
 
     //creates an alert in the DB if parameter is met every 3 seconds in the background
