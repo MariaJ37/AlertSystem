@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Device_Name"
+    style="@style/SCREEN"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SupportActivity">
+    tools:context=".PatientInfo">
 
     <LinearLayout
         android:id="@+id/topLay"
@@ -45,7 +47,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="32dp"
         android:text="@string/Patient_Info"
         android:textSize="16sp"
@@ -59,12 +61,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:hint="Name"
+        app:layout_constraintBottom_toTopOf="@+id/Patient_Address1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Patient_Info">
+        app:layout_constraintTop_toBottomOf="@+id/Patient_Room1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Patient_Name"
@@ -82,9 +85,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:hint="Address"
+        app:layout_constraintBottom_toTopOf="@+id/Patient_Phone1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Patient_Name1">
@@ -105,9 +109,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:hint="Phone"
+        app:layout_constraintBottom_toTopOf="@+id/Emergency_Contact"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Patient_Address1">
@@ -125,24 +130,25 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Patient_Room1"
         style="@style/LoginTextInputLayoutStyle"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="157dp"
         android:hint="Room"
+        app:layout_constraintBottom_toTopOf="@+id/Patient_Name1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Patient_Phone1">
+        app:layout_constraintTop_toBottomOf="@+id/Patient_Info">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Patient_Room"
             style="@style/TEXT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:digits="1234567890"
-            android:inputType="number" />
-
+            android:inputType="number"
+            android:minHeight="48dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -151,14 +157,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="32dp"
         android:text="@string/Emergency_Contact"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Patient_Room1" />
+        app:layout_constraintTop_toBottomOf="@+id/Patient_Phone1" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Emergency_name1"
@@ -211,7 +217,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="613dp"
+        android:layout_marginTop="629dp"
         android:layout_marginEnd="32dp"
         android:text="@string/SaveButtonPatient"
         app:layout_constraintEnd_toEndOf="parent"

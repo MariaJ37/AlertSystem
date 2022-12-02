@@ -60,9 +60,11 @@ public class ThemesActivity extends AppCompatActivity {
 
         if (btn){
             night.setChecked(true);
+            Toast.makeText(this, "DarkMode", Toast.LENGTH_SHORT).show();
         }
         if (!btn){
             light.setChecked(true);
+            Toast.makeText(this, "LightMode", Toast.LENGTH_SHORT).show();
         }
 
         light.setOnClickListener(new View.OnClickListener() {

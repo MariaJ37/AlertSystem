@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -37,9 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         stopService(new Intent(MainActivity.this,BackgroundService.class));
 
-
-
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent v =new Intent(getApplicationContext(),AllAlertsView.class);
                 startActivity(v);
-                 }
+            }
         });
 
         int length = 0;
@@ -102,13 +100,13 @@ public class MainActivity extends AppCompatActivity {
 
         int len = 0;
         try {
-            len = webserver.getenumofEnt();
+            len = webserver.getElenz();
         } catch (IOException e) {
             e.printStackTrace();
         }
         String[] d = new String[len];
         try {
-            d = webserver.getCodeandname();
+            d = webserver.getCodeandEname();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,14 +120,14 @@ public class MainActivity extends AppCompatActivity {
                 int j = 0;
 
                 try {
-                    j = webserver.getenumofEnt();
+                    j = webserver.getElenz();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 int[] ref = new int[j];
 
                 try {
-                    ref = webserver.getcodesallpatientInfo();
+                    ref = webserver.getCodeEarr();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -141,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(pass);
             }
         });
+
 
     }
 
@@ -171,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent y = new Intent(getApplicationContext(),Update_info.class);
                 startActivity(y);
                 break;
-
 
             case R.id.settings:
                 Intent ss = new Intent(getApplicationContext(),ThemesActivity.class);

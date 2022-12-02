@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/maria/AndroidStudioProjects/AlertSystem/app/src/main/res/layout/activity_alert_view.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/maria/AndroidStudioProjects/AlertSystem/app/src/main/res/layout/activity_all_alerts_view.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/maria/AndroidStudioProjects/AlertSystem/app/src/main/res/layout/activity_available_rooms.xml" value="0.13722826086956522" />
+        <entry key="..\:/Users/maria/AndroidStudioProjects/AlertSystem/app/src/main/res/layout/activity_info_view.xml" value="0.13722826086956522" />
         <entry key="..\:/Users/maria/AndroidStudioProjects/AlertSystem/app/src/main/res/layout/activity_patient_info.xml" value="0.13722826086956522" />
         <entry key="..\:/Users/maria/AndroidStudioProjects/AlertSystem/app/src/main/res/layout/activity_remove_device.xml" value="0.13722826086956522" />
         <entry key="..\:/Users/maria/AndroidStudioProjects/AlertSystem/app/src/main/res/layout/activity_support.xml" value="0.17552083333333332" />

@@ -64,26 +64,11 @@ public class RemoveDevice extends AppCompatActivity {
         lv=(ListView) findViewById(R.id.remove_devices_listview);
         adapter=new ArrayAdapter<String>(RemoveDevice.this,R.layout.list_item,R.id.list_content,d);
         lv.setAdapter(adapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        String[] finalD = d;
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int pos = lv.getPositionForView(view);
-                int j = 0;
-
-                try {
-                    j = webserver.getenumofEnt();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                int[] ref = new int[j];
-
-                try {
-                    ref = webserver.getcodesallpatientInfo();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                int roomCode = ref[pos];
-
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final int which_item= i;
                 new  AlertDialog.Builder(RemoveDevice.this)
                         .setIcon(android.R.drawable.ic_delete)
                         .setTitle("Are you sure?")
@@ -91,38 +76,31 @@ public class RemoveDevice extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int s) {
+
+                                String data = finalD[i];
+                                String idData =  data.substring(10,14).trim();
+                                int ID = Integer.parseInt(idData);
+
                                 try {
-                                    webserver.delPatientinfo(roomCode);
-                                    //Toast.makeText(RemoveDevice.this, "In webserverdelpatient",Toast.LENGTH_SHORT).show();
-                                    adapter.notifyDataSetChanged();
+                                    webserver.delPatientinfo(ID);
+
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
+                                Toast.makeText(RemoveDevice.this, "deleting...", Toast.LENGTH_SHORT).show();
+                                Intent v =new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(v);
                             }
                         })
                         .setNegativeButton("No",null)
                         .show();
 
+                return false;
             }
         });
 
-       /*delete.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               String getroom = editText.getText().toString();
-               int i = Integer.parseInt(getroom);
-
-               try {
-                   webserver.delPatientinfo(i);
-               } catch (IOException e) {
-                   e.printStackTrace();
-               }
-               Intent v =new Intent(getApplicationContext(),MainActivity.class);
-               startActivity(v);
-
-           }
-       });*/
 
     }
 }
+
 

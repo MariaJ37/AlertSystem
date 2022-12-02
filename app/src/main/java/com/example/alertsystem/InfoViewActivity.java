@@ -1,5 +1,6 @@
 package com.example.alertsystem;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,6 +22,7 @@ public class InfoViewActivity extends AppCompatActivity {
     private ListView lvp, lve,status;
     private int roomCode = 0;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +81,7 @@ public class InfoViewActivity extends AppCompatActivity {
 
         String []t= new String[0];
         try {
-            t = new String[]{"Last Movement: "+webserver.getTimeOfMov(404),"Wifi Connection: "+webserver.getTimeOfWifi(404)};
+            t = new String[]{"Last Movement: "+webserver.getTimeOfMov(roomCode),"Wifi Connection: "+webserver.getTimeOfWifi(roomCode), "Battery Percentage: "+webserver.getPercent(roomCode)};
         } catch (IOException e) {
             e.printStackTrace();
         }

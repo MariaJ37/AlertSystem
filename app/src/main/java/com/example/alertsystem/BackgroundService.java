@@ -77,10 +77,10 @@ public class BackgroundService extends Service {
             builder.setContentTitle("Alert: " + type + " in room " + room);
             builder.setContentText(type + " recorded at: " + last);
             builder.setAutoCancel(true);
-            builder.setSmallIcon(R.drawable.ic_launcher_background);
+            builder.setSmallIcon(R.drawable.ic_baseline_warning_24);
             builder.setContentIntent(pending);
             NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-            managerCompat.notify(1,builder.build());
+            managerCompat.notify(i,builder.build());
         }
 
     }

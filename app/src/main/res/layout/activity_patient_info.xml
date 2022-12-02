@@ -47,7 +47,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="32dp"
         android:text="@string/Patient_Info"
         android:textSize="16sp"
@@ -61,12 +61,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:hint="Name"
+        app:layout_constraintBottom_toTopOf="@+id/Patient_Address1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Patient_Info">
+        app:layout_constraintTop_toBottomOf="@+id/roomcode">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Patient_Name"
@@ -84,9 +85,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:hint="Address"
+        app:layout_constraintBottom_toTopOf="@+id/Patient_Phone1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Patient_Name1">
@@ -107,9 +109,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:hint="Phone"
+        app:layout_constraintBottom_toTopOf="@+id/Emergency_Contact"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Patient_Address1">
@@ -124,43 +127,20 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/Patient_Room1"
-        style="@style/LoginTextInputLayoutStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:hint="Room"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Patient_Phone1">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Patient_Room"
-            style="@style/TEXT"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:digits="1234567890"
-            android:inputType="number" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <TextView
         android:id="@+id/Emergency_Contact"
         style="@style/TEXT"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="7dp"
         android:layout_marginEnd="32dp"
         android:text="@string/Emergency_Contact"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Patient_Room1" />
+        app:layout_constraintTop_toBottomOf="@+id/Patient_Phone1" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Emergency_name1"
@@ -220,6 +200,18 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/roomcode"
+        style="@style/TEXT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="53dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Patient_Info" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

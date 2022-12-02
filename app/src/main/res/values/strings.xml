@@ -21,7 +21,7 @@
     <string name="alert_type">Alert type</string>
     <string name="type_of_alert">No movement/No connectivity/Low battery</string>
     <string name="device_status">Status</string>
-    <string name="Last_registered_movement">Last Register movement/ping/Battery life</string>
+    <string name="Last_registered_movement">Device status: </string>
     <string name="resolveButton">Resolved</string>
     <string name="emergency_contact_alert">Name/Phone</string>
     <string name="patient_info_alert">Name/Phone/Address</string>
