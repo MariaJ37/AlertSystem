@@ -69,18 +69,21 @@ public class BackgroundService extends Service {
             String type = getAlertAlert(aid);
             int room = getAlertRoomCode(aid);
             String last = getAlertTimeOf(aid);
-            Intent notifyint = new Intent(this,Alert_view.class);
-            notifyint.putExtra("aid",aid);
-            PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,FLAG_IMMUTABLE);
+            if (room != 0) {
+                String aide = Integer.toString(aid);
+                Intent notifyint = new Intent(this,Alert_view.class);
+                notifyint.putExtra("aid",aide);
+                PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,PendingIntent.FLAG_UPDATE_CURRENT);
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(this,Channel_Name);
-            builder.setContentTitle("Alert: " + type + " in room " + room);
-            builder.setContentText(type + " recorded at: " + last);
-            builder.setAutoCancel(true);
-            builder.setSmallIcon(R.drawable.ic_baseline_warning_24);
-            builder.setContentIntent(pending);
-            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-            managerCompat.notify(i,builder.build());
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this,Channel_Name);
+                builder.setContentTitle("Alert: " + type + " in room " + room);
+                builder.setContentText(type + " recorded at: " + last);
+                builder.setAutoCancel(true);
+                builder.setSmallIcon(R.drawable.ic_baseline_warning_24);
+                builder.setContentIntent(pending);
+                NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+                managerCompat.notify(i,builder.build());
+            }
         }
 
     }
