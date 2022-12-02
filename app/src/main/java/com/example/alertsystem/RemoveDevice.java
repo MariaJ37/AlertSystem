@@ -3,6 +3,8 @@ package com.example.alertsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +12,6 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class RemoveDevice extends AppCompatActivity {
-    Button delete;
+    //Button delete;
     EditText editText;
     ListView lv;
     ArrayList<String> listItems;
@@ -41,6 +42,10 @@ public class RemoveDevice extends AppCompatActivity {
                 finish();
             }
         });
+       /* Intent code =getIntent();
+        String room = code.getStringExtra("roomCode");
+        int roomCode=Integer.parseInt(room);*/
+
 
         int len = 0;
         try {
@@ -54,28 +59,48 @@ public class RemoveDevice extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        delete=(Button)findViewById(R.id.DeleteButton);
-        editText=(EditText)findViewById(R.id.editTextPhone);
+        //delete=(Button)findViewById(R.id.DeleteButton);
+        //editText=(EditText)findViewById(R.id.editTextPhone);
         lv=(ListView) findViewById(R.id.remove_devices_listview);
         adapter=new ArrayAdapter<String>(RemoveDevice.this,R.layout.list_item,R.id.list_content,d);
         lv.setAdapter(adapter);
-
-        delete.setOnClickListener(new View.OnClickListener() {
+        String[] finalD = d;
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onClick(View view) {
-                String getroom = editText.getText().toString();
-                int i = Integer.parseInt(getroom);
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final int which_item= i;
+                new  AlertDialog.Builder(RemoveDevice.this)
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setTitle("Are you sure?")
+                        .setMessage("you want to delete patient")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int s) {
 
-                try {
-                    webserver.delPatientinfo(i);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Intent v =new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(v);
+                                String data = finalD[i];
+                                String idData =  data.substring(10,14).trim();
+                                int ID = Integer.parseInt(idData);
 
+                                try {
+                                    webserver.delPatientinfo(ID);
+
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                Toast.makeText(RemoveDevice.this, "deleting...", Toast.LENGTH_SHORT).show();
+                                Intent v =new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(v);
+                            }
+                        })
+                        .setNegativeButton("No",null)
+                        .show();
+
+                return false;
             }
         });
 
+
     }
 }
+
+

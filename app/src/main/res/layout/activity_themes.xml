@@ -53,19 +53,32 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/btn"
+
+    <CheckBox
+        android:id="@+id/nightBTN"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:buttonTint="@color/y"
+        android:text="Dark"
+        android:buttonTint="@color/black"
+        android:textColor="@color/black"
         android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="Change Theme"
+        android:textStyle="bold"/>
+
+    <CheckBox
+        android:id="@+id/dayBTN"
+        app:layout_constraintEnd_toStartOf="@id/nightBTN"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Light"
+        android:buttonTint="@color/white"
         android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fontFamily="@font/montserrat"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/textView6"

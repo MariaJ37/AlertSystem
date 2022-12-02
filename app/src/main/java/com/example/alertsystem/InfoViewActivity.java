@@ -1,11 +1,15 @@
 package com.example.alertsystem;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,16 +20,14 @@ import java.util.ArrayList;
 public class InfoViewActivity extends AppCompatActivity {
 
     private ListView lvp, lve,status;
+    private int roomCode = 0;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_view);
-        if(Build.VERSION.SDK_INT>9){
-            StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
+        getSupportActionBar().hide();
         findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,11 +35,24 @@ public class InfoViewActivity extends AppCompatActivity {
                 finish();
             }
         });
+        if(Build.VERSION.SDK_INT>9){
+            StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        /*
+        findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+                finish();
+            }
+        });
+        */
 
         Intent pass = getIntent();
         String room = pass.getStringExtra("code");
 
-        int roomCode = Integer.parseInt(room);
+        roomCode = Integer.parseInt(room);
 
 
         String m = Integer.toString(roomCode);
@@ -64,15 +79,34 @@ public class InfoViewActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter1=new ArrayAdapter<>(InfoViewActivity.this, R.layout.list_item,R.id.list_content,s);
         lve.setAdapter(adapter1);
 
-        /*String []t= new String[0];
+        String []t= new String[0];
         try {
-            t = new String[]{"Last Movement: "+webserver.getTimeOfMov(404),"Wifi Connection: "+webserver.getTimeOfWifi(404)};
+            t = new String[]{"Last Movement: "+webserver.getTimeOfMov(roomCode),"Wifi Connection: "+webserver.getTimeOfWifi(roomCode), "Battery Percentage: "+webserver.getPercent(roomCode)};
         } catch (IOException e) {
             e.printStackTrace();
         }
         status=(ListView)findViewById(R.id.Movement_wifi);
         ArrayAdapter<String>adapter2=new ArrayAdapter<>(InfoViewActivity.this, R.layout.list_item,R.id.list_content,t);
-        status.setAdapter(adapter2);*/
-        getSupportActionBar().hide();
+        status.setAdapter(adapter2);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_info,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.update_device:
+                String v = Integer.toString(roomCode);
+                Intent u = new Intent(InfoViewActivity.this, Update_info.class);
+                u.putExtra("room",v);
+                startActivity(u);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

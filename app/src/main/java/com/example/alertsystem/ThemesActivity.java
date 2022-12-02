@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,23 +23,26 @@ public class ThemesActivity extends AppCompatActivity {
 
     private Button buttonSaveParameters;
     private EditText editTextPercent, editTextMovement, editTextWifi, editTextNotification;
-    SwitchCompat switchCompat;
     ImageView imageView;
-    boolean nMood;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    CheckBox night, light;
+    boolean btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_themes);
         getSupportActionBar().hide();
+        SharedPref.init(getApplicationContext());
+        btn = SharedPref.getBoolean("night",true);
+
+
         if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
-        switchCompat = findViewById(R.id.btn);
+        light = findViewById(R.id.dayBTN);
+        night = findViewById(R.id.nightBTN);
         imageView = findViewById(R.id.img);
         buttonSaveParameters = findViewById(R.id.buttonSaveParameters);
         editTextPercent = findViewById(R.id.editTextPercent);
@@ -54,28 +58,41 @@ public class ThemesActivity extends AppCompatActivity {
             }
         });
 
-        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
-        nMood = sharedPreferences.getBoolean("night", false);
-
-        if (nMood) {
-            switchCompat.setChecked(true);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        if (btn){
+            night.setChecked(true);
+            Toast.makeText(this, "DarkMode", Toast.LENGTH_SHORT).show();
         }
-        switchCompat.setOnClickListener(new View.OnClickListener() {
+        if (!btn){
+            light.setChecked(true);
+            Toast.makeText(this, "LightMode", Toast.LENGTH_SHORT).show();
+        }
+
+        light.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ThemesActivity.this, "Haha", Toast.LENGTH_SHORT).show();
-                if (nMood) {
+                if (!light.isChecked()) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    editor =sharedPreferences.edit();
-                    editor.putBoolean("night",false);
-                } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    editor =sharedPreferences.edit();
-                    editor.putBoolean("night",true);
+                    SharedPref.putBoolean("night", false);
+                    finish();
+                    startActivity(getIntent());
                 }
             }
         });
+
+        night.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!night.isChecked()) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    SharedPref.putBoolean("night", true);
+                    finish();
+                    startActivity(getIntent());
+                }
+            }
+        });
+
+
+
         //Get the values from parameters table and insert into the edit text so the user knows the current values.
         int curPerc = 0;
         int curMove = 0;
@@ -119,22 +136,22 @@ public class ThemesActivity extends AppCompatActivity {
                 int percent = 0, wifi = 0, movement = 0, notification = 0;
                 try {
                     percent = Integer.parseInt(String.valueOf(editTextPercent.getText()));
-                } catch (Exception e){
+                } catch (Exception e) {
                 }
                 try {
                     wifi = Integer.parseInt(String.valueOf(editTextWifi.getText()));
-                } catch (Exception e){
+                } catch (Exception e) {
                 }
                 try {
                     movement = Integer.parseInt(String.valueOf(editTextMovement.getText()));
-                } catch (Exception e){
+                } catch (Exception e) {
                 }
                 try {
                     notification = Integer.parseInt(String.valueOf(editTextNotification.getText()));
-                } catch (Exception e){
+                } catch (Exception e) {
                 }
                 //try to set the parameters if the field is not 0 or null. Toast otherwise
-                if (percent != 0){
+                if (percent != 0) {
                     try {
                         webserver.setPercentParameter(percent);
                     } catch (IOException e) {
@@ -143,7 +160,7 @@ public class ThemesActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(ThemesActivity.this, "Percent Field Not Updated. Invalid Input.", Toast.LENGTH_SHORT).show();
                 }
-                if(wifi != 0) {
+                if (wifi != 0) {
                     try {
                         webserver.setWifiParameter(wifi);
                     } catch (IOException e) {
@@ -161,7 +178,7 @@ public class ThemesActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(ThemesActivity.this, "Movement Field Not Updated. Invalid Input.", Toast.LENGTH_SHORT).show();
                 }
-                if(notification != 0) {
+                if (notification != 0) {
                     try {
                         webserver.setNotificationParameter(notification);
                     } catch (IOException e) {

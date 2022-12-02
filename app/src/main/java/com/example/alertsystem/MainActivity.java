@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -37,15 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         stopService(new Intent(MainActivity.this,BackgroundService.class));
 
-        //Foreground
-     /*   ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.FOREGROUND_SERVICE}, PackageManager.PERMISSION_GRANTED);
-        Context context =getApplicationContext();
-        Intent foreground = new Intent(this,ForegroundService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(foreground);
-        }*/
-
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -58,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
         alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent v =new Intent(getApplicationContext(),RemoveDevice.class);
+                Intent v =new Intent(getApplicationContext(),AllAlertsView.class);
                 startActivity(v);
-                 }
+            }
         });
 
         int length = 0;
@@ -108,13 +100,13 @@ public class MainActivity extends AppCompatActivity {
 
         int len = 0;
         try {
-            len = webserver.getenumofEnt();
+            len = webserver.getElenz();
         } catch (IOException e) {
             e.printStackTrace();
         }
         String[] d = new String[len];
         try {
-            d = webserver.getCodeandname();
+            d = webserver.getCodeandEname();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,14 +120,14 @@ public class MainActivity extends AppCompatActivity {
                 int j = 0;
 
                 try {
-                    j = webserver.getenumofEnt();
+                    j = webserver.getElenz();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 int[] ref = new int[j];
 
                 try {
-                    ref = webserver.getcodesallpatientInfo();
+                    ref = webserver.getCodeEarr();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -147,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(pass);
             }
         });
+
 
     }
 
@@ -165,33 +158,17 @@ public class MainActivity extends AppCompatActivity {
         //Add device and remove device were both put on on the same activity easier access
         switch (item.getItemId()) {
             case R.id.add_new_device:
-                Intent u = new Intent(getApplicationContext(),PatientInfo.class);
+                Intent u = new Intent(getApplicationContext(),AvailableRooms.class);
                 startActivity(u);
-                //Toast.makeText(getApplicationContext(),"Add devices was clicked",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.remove_device:
                 Intent v =new Intent(getApplicationContext(),RemoveDevice.class);
                 startActivity(v);
-                //Toast.makeText(getApplicationContext(),"Remove devices was clicked",Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.update_device:
                 Intent y = new Intent(getApplicationContext(),Update_info.class);
                 startActivity(y);
-                //Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.pInfo:
-                Intent pi = new Intent(getApplicationContext(),InfoViewActivity.class);
-                startActivity(pi);
-                //Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
-                break;
-
-            case R.id.iV:
-                DialogeClass.showDD(this,"Cannot open Info View: Some Error to be fix in Webserver code");
-//                Intent iv = new Intent(getApplicationContext(),InfoViewActivity.class);
-//                startActivity(iv);
-                //Toast.makeText(this, "Edit Patient Info was clicked", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.settings:

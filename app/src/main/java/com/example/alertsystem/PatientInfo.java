@@ -13,7 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,6 +30,8 @@ public class PatientInfo extends AppCompatActivity {
     private Button Save;
     private EditText addName,addAdd,addPhone,addRoom,addEname,addEphone;
     boolean isAllFieldsChecked=false;
+    private int roomCode = 0;
+    private TextView RoomCode;
 
     //****** check to see if anything is different here
     @Override
@@ -45,14 +50,21 @@ public class PatientInfo extends AppCompatActivity {
                 finish();
             }
         });
+        Intent pass = getIntent();
+        String room = pass.getStringExtra("code");
+        roomCode = Integer.parseInt(room);
+        String m = Integer.toString(roomCode);
 
+        RoomCode = (TextView)findViewById(R.id.roomcode);
+        RoomCode.setText(m);
         Save = (Button) findViewById(R.id.SaveButtonPatient);
         addName = (EditText) findViewById(R.id.Patient_Name);
         addAdd = (EditText) findViewById(R.id.Patient_Address);
         addPhone = (EditText) findViewById(R.id.Patient_Phone);
         addEname = (EditText) findViewById(R.id.Emergency_name);
         addEphone = (EditText) findViewById(R.id.Emergency_Phone);
-        addRoom = (EditText) findViewById(R.id.Patient_Room);
+        //addRoom = (EditText) findViewById(R.id.Patient_Room);
+
 
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,15 +77,14 @@ public class PatientInfo extends AppCompatActivity {
                 String ename = addEname.getText().toString();
                 String phone = addPhone.getText().toString();
                 String ephone = addEphone.getText().toString();
-                String roomtmp = addRoom.getText().toString();
-                int room = Integer.parseInt(roomtmp);
                 try {
-                    webserver.setPatientinfo(name, address, ename, room, ephone, phone);
+                    webserver.setPatientinfo(name, address, ename, roomCode, ephone, phone);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 Intent v = new Intent(getApplicationContext(), MainActivity.class);
+
                 startActivity(v);
             }
         }
@@ -93,10 +104,6 @@ public class PatientInfo extends AppCompatActivity {
         }
         if (addPhone.length()==0){
             addPhone.setError("This Field is required");
-            return false;
-        }
-        if (addRoom.length()==0){
-            addRoom.setError("This Field is required");
             return false;
         }
         if(addEname.length()==0){

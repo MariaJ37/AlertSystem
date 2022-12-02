@@ -1,7 +1,12 @@
 package com.example.alertsystem;
 
+import static com.example.alertsystem.webserver.getAlertDismissed;
+import static com.example.alertsystem.webserver.updateAlertDismissed;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,12 +15,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
 public class Alert_view extends AppCompatActivity {
     private ListView lvp, lve,status;
-    private Button resolved;
+    private Button resolved, del;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +80,69 @@ public class Alert_view extends AppCompatActivity {
         ArrayAdapter<String> adapter1=new ArrayAdapter<>(Alert_view.this, R.layout.list_item,R.id.list_content,s);
         lve.setAdapter(adapter1);
 
+        boolean state = true;
+        String []dismissed= new String [1];
+        try {
+            state=webserver.getAlertDismissed(aID);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (state==true){
+            dismissed [0]="Dismissed";
+        }
+        else {
+            dismissed[0]="Not Dismissed";
+        }
+        status=(ListView)findViewById(R.id.Last_registered_movement);
+        ArrayAdapter<String> adapter2=new ArrayAdapter<>(Alert_view.this, R.layout.list_item,R.id.list_content,dismissed);
+        status.setAdapter(adapter2);
+
+
+        //HERE
+        resolved = (Button)findViewById(R.id.resolveButton);
+
+        resolved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (getAlertDismissed(aID) == false) {
+                        new  AlertDialog.Builder(Alert_view.this)
+                                .setIcon(android.R.drawable.ic_delete)
+                                .setTitle("Error")
+                                .setMessage("The alert is already dismissed.")
+                                .setPositiveButton("Go back to Pending alerts", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent= new Intent(Alert_view.this,MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("Close", null)
+                                .show();
+                    }
+
+                    else {
+                        updateAlertDismissed(false,aID);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        del = (Button)findViewById(R.id.resolveButton2);
+        del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    webserver.delAlert(aID);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+/*
         resolved = (Button)findViewById(R.id.resolveButton);
         resolved.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +153,10 @@ public class Alert_view extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
+
+
+
 
     }
 }

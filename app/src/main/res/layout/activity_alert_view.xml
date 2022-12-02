@@ -6,159 +6,173 @@
     style="@style/SCREEN"
     android:layout_height="match_parent">
     <LinearLayout
-            android:id="@+id/topLay"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:background="@color/y"
-            android:orientation="horizontal">
+        android:id="@+id/topLay"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@color/y"
+        android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/back1"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_back"
-                app:tint="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Alert Screen"
-                android:layout_gravity="center_vertical"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/montserrat"
-                android:layout_marginStart="8dp"/>
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/back1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_back"
+            app:tint="@color/white" />
 
         <TextView
-            android:id="@+id/Patient_info"
-            style="@style/TEXT"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/Patient_info"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topLay" />
-
-        <TextView
-            android:id="@+id/emergency_contact"
-            style="@style/TEXT"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="180dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/emergency_contact"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Patient_info" />
-
-        <TextView
-            android:id="@+id/alert_type"
-            style="@style/TEXT"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="136dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/alert_type"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emergency_contact" />
-
-        <TextView
-            android:id="@+id/type_of_alert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="240dp"
-            android:layout_marginTop="444dp"
-            android:layout_marginEnd="26dp"
-            android:text="@string/type_of_alert"
-            style="@style/TEXT"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/alert_type"
-            app:layout_constraintTop_toBottomOf="@+id/topLay" />
+            android:text="Alert Screen"
+            android:layout_gravity="center_vertical"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginStart="8dp"/>
 
-        <TextView
-            android:id="@+id/device_status"
-            style="@style/TEXT"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="64dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/device_status"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/alert_type" />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/resolveButton"
-            style="@style/BUTTON"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/resolveButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Last_registered_movement" />
+    <TextView
+        android:id="@+id/Patient_info"
+        style="@style/TEXT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/Patient_info"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topLay" />
 
-        <ListView
-            android:id="@+id/patient_info_alert"
-            style="@style/TEXT"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Patient_info"
-            tools:ignore="DuplicateSpeakableTextCheck" />
+    <TextView
+        android:id="@+id/emergency_contact"
+        style="@style/TEXT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/emergency_contact"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Patient_info" />
 
-        <ListView
-            android:id="@+id/emergency_contact_alert"
-            style="@style/TEXT"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emergency_contact" />
+    <TextView
+        android:id="@+id/alert_type"
+        style="@style/TEXT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/alert_type"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emergency_contact" />
 
-        <ListView
-            android:id="@+id/Last_registered_movement"
-            style="@style/TEXT"
-            android:layout_width="0dp"
-            android:layout_height="92dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/device_status" />
+    <TextView
+        android:id="@+id/type_of_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="444dp"
+        android:layout_marginEnd="26dp"
+        android:text="@string/type_of_alert"
+        style="@style/TEXT"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/alert_type"
+        app:layout_constraintTop_toBottomOf="@+id/topLay" />
+
+    <TextView
+        android:id="@+id/device_status"
+        style="@style/TEXT"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/device_status"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alert_type" />
+
+    <Button
+        android:id="@+id/resolveButton"
+        style="@style/BUTTON"
+        android:layout_width="164dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="24dp"
+        android:text="Dismiss"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Last_registered_movement" />
+
+    <Button
+        android:id="@+id/resolveButton2"
+        style="@style/BUTTON"
+        android:layout_width="164dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="24dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Last_registered_movement" />
+
+    <ListView
+        android:id="@+id/patient_info_alert"
+        style="@style/TEXT"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Patient_info"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <ListView
+        android:id="@+id/emergency_contact_alert"
+        style="@style/TEXT"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emergency_contact" />
+
+    <ListView
+        android:id="@+id/Last_registered_movement"
+        style="@style/TEXT"
+        android:layout_width="0dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/device_status" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
