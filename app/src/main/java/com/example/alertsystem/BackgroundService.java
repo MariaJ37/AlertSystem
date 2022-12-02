@@ -2,6 +2,9 @@ package com.example.alertsystem;
 
 import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static com.example.alertsystem.webserver.alertchecker;
+import static com.example.alertsystem.webserver.createBatAlert;
+import static com.example.alertsystem.webserver.createMovAlert;
+import static com.example.alertsystem.webserver.createWifiAlert;
 import static com.example.alertsystem.webserver.getAlertAlert;
 import static com.example.alertsystem.webserver.getAlertRoomCode;
 import static com.example.alertsystem.webserver.getAlertTimeOf;
@@ -17,6 +20,7 @@ import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.StrictMode;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -72,8 +76,9 @@ public class BackgroundService extends Service {
             if (room != 0) {
                 String aide = Integer.toString(aid);
                 Intent notifyint = new Intent(this,Alert_view.class);
+                notifyint.setFlags(Intent. FLAG_ACTIVITY_CLEAR_TOP | Intent. FLAG_ACTIVITY_SINGLE_TOP ) ;
                 notifyint.putExtra("aid",aide);
-                PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,FLAG_IMMUTABLE);
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this,Channel_Name);
                 builder.setContentTitle("Alert: " + type + " in room " + room);
@@ -136,6 +141,23 @@ public class BackgroundService extends Service {
                 }
             }
         },0,60000);
+    }
+
+    //creates an alert in the DB if parameter is met every 3 seconds in the background
+    public void alertCreateRe() throws IOException {
+        Timer timer2 = new Timer();
+        timer2.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    createBatAlert();
+                    createMovAlert();
+                    createWifiAlert();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        },0,3000);
     }
 
     @Override

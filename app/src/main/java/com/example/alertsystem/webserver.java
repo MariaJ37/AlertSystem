@@ -1414,6 +1414,50 @@ public class webserver {
     }
 
 
+    public static void createBatAlert() throws IOException {
+        URL url = null;
+
+        try {
+            url = new URL(webserverUrl+"/createBatAlert.php?alertPerc=" + getPercentParameter());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(url.openStream())
+        );
+    }
+
+
+    public static void createMovAlert() throws IOException {
+        URL url = null;
+
+        try {
+            url = new URL(webserverUrl+"/createLMovAlert.php?alertTime=" + getMovementParameter());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(url.openStream())
+        );
+    }
+
+
+    public static void createWifiAlert() throws IOException {
+        URL url = null;
+
+        try {
+            url = new URL(webserverUrl+"/createWifiAlert.php?alertTime=" + getWifiParameter());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(url.openStream())
+        );
+    }
+
 
 
 }
