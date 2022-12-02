@@ -833,7 +833,7 @@ public class webserver {
             return false;
         }
         boolean dismissed = false;
-        if(s == "1") {
+        if(s.contains("1")) {
             dismissed = true;
         } else {
             dismissed = false;
