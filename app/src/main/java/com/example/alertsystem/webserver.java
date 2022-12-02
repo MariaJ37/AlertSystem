@@ -984,7 +984,9 @@ public class webserver {
         String[] lines = new String[arr.length];
 
         for (int i = 0; i < arr.length; i++) {
-            lines[i] = "Room Code: " + getAlertRoomCode(arr[i]) + "       Type: " + getAlertAlert(arr[i]);
+            if (getAlertRoomCode(arr[i]) != 0) {
+                lines[i] = "Room Code: " + getAlertRoomCode(arr[i]) + "       Type: " + getAlertAlert(arr[i]);
+            }
         }
         return lines;
     }
@@ -1411,6 +1413,50 @@ public class webserver {
             }
         }
         return len;
+    }
+
+    public static void createBatAlert() throws IOException {
+        URL url = null;
+
+        try {
+            url = new URL(webserverUrl+"/createBatteryAlert.php?alertPerc=" + getPercentParameter());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(url.openStream())
+        );
+    }
+
+
+    public static void createMovAlert() throws IOException {
+        URL url = null;
+
+        try {
+            url = new URL(webserverUrl+"/createLMovAlert.php?alertTime=" + getMovementParameter());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(url.openStream())
+        );
+    }
+
+
+    public static void createWifiAlert() throws IOException {
+        URL url = null;
+
+        try {
+            url = new URL(webserverUrl+"/createWifiAlert.php?alertTime=" + getWifiParameter());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(url.openStream())
+        );
     }
 
 

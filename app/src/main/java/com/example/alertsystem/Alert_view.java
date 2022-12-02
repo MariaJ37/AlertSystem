@@ -46,7 +46,6 @@ public class Alert_view extends AppCompatActivity {
 
         Intent pass = getIntent();
         String aide = pass.getStringExtra("aid");
-
         int aID = Integer.parseInt(aide);
         int roomCode = 0;
         try {

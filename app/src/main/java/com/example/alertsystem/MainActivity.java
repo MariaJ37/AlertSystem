@@ -1,5 +1,8 @@
 package com.example.alertsystem;
 
+import static com.example.alertsystem.webserver.iDelength;
+import static com.example.alertsystem.webserver.iDnameaid;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -57,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
         int length = 0;
         try {
-            length = webserver.getenumofaID();
+            length = iDelength(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
         String[] s = new String[length];
         try {
-            s = webserver.getaIDandName();
+            s = iDnameaid(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
