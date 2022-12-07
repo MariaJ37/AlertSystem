@@ -74,12 +74,16 @@ public class BackgroundService extends Service {
     //create customized notfications for each alert in DB
     private void createNotification() throws IOException {
         int[] num = alertchecker();
-        for (int i = 0; i < num.length; i++) {
+        for (int i = 0; i < num.length; i++) { //for loop to create notification for every alert in database
             int aid = num [i];
             String type = getAlertAlert(aid);
             int room = getAlertRoomCode(aid);
             String last = getAlertTimeOf(aid);
+
+            //some reason roomcode 0 always exists in db
             if (room != 0) {
+                //create notification with a pending intent to return to Main Activity
+                //Note: we attempted to navigate to the specified alert, but passing data was unachievable with a pending intent
                 String aide = Integer.toString(aid);
                 Intent notifyint = new Intent(this,MainActivity.class);
                 PendingIntent pending = PendingIntent.getActivity(this,0,notifyint,FLAG_IMMUTABLE);
@@ -102,11 +106,11 @@ public class BackgroundService extends Service {
         Timer timer1 = new Timer();
         timer1.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run() {
+            public void run() { //schedule a timertask every 3 seconds after app is closed by 3 seconds
                 try {
-                    if(alertcheck() == true) {
-                        pushNotification();
-                        timer1.cancel();
+                    if(alertcheck() == true) { //if alert is found
+                        pushNotification(); //start pushing notification to users phone
+                        timer1.cancel(); //Stop this timertask
                     }
                 }
                 catch (IOException e) {
@@ -136,10 +140,10 @@ public class BackgroundService extends Service {
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run() {
+            public void run() { //timertask scheduled according to the user
                 createNotificationChannel();
                 try {
-                    createNotification();
+                    createNotification();//Create a notification every X amount of seconds until alert is dismissed or deleted
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -154,19 +158,20 @@ public class BackgroundService extends Service {
             @Override
             public void run() {
                 try {
-                    createBatAlert();
-                    createMovAlert();
-                    createWifiAlert();
+                    createBatAlert(); // create an alert if battery is below threshold
+                    createMovAlert(); // create an alert if no movement is detected passed the threshold
+                    createWifiAlert(); //create alert if wifi is down
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-        },0,3000);
-    }
 
+            }
+        },0,3000); //every 3 seconds check the database
+    }
+    //on destroy method for when the service is terminated
     @Override
     public void onDestroy() {
         super.onDestroy();
-        timer.cancel();
+        timer.cancel(); //stop timer for pushing notifications
     }
 }

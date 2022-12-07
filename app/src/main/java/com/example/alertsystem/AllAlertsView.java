@@ -30,6 +30,8 @@ public class AllAlertsView extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
+        //Back button
         findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +40,7 @@ public class AllAlertsView extends AppCompatActivity {
             }
         });
 
+        //Store non-dismissed alerts in array of strings
         int length = 0;
         try {
             length = iDelength(false);
@@ -51,12 +54,14 @@ public class AllAlertsView extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //display non dismissed alerts on clickable listview
         lv1=(ListView)findViewById(R.id.patient_info_alert1);
         ArrayAdapter<String> adapter=new ArrayAdapter<>(AllAlertsView.this,R.layout.list_item,R.id.list_content,s);
         lv1.setAdapter(adapter);
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //when user clicks on an item, the application navigates accordingly
                 int pos = lv1.getPositionForView(view);
                 int j = 0;
 
@@ -81,6 +86,7 @@ public class AllAlertsView extends AppCompatActivity {
             }
         });
 
+        //Store dismissed alerts in array of strings
         int len = 0;
         try {
             len = iDelength(true);
@@ -93,6 +99,8 @@ public class AllAlertsView extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //display dismissed alerts in clickable list view
         lv2=(ListView) findViewById(R.id.emergency_contact_alert);
         adapter=new ArrayAdapter<String>(AllAlertsView.this,R.layout.list_item,R.id.list_content,d);
         lv2.setAdapter(adapter);

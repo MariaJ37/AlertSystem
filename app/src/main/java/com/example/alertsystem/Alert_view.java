@@ -29,6 +29,7 @@ public class Alert_view extends AppCompatActivity {
         setContentView(R.layout.activity_alert_view);
         getSupportActionBar().hide();
 
+        //Back button
         findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,10 +44,11 @@ public class Alert_view extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
-
+        //catch passed data
         Intent pass = getIntent();
         String aide = pass.getStringExtra("aid");
         int aID = Integer.parseInt(aide);
+
         int roomCode = 0;
         try {
             roomCode = webserver.getAlertRoomCode(aID);
@@ -54,7 +56,7 @@ public class Alert_view extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
+        //Store patient info into array
         String m = Integer.toString(roomCode);
         String [] d= new String[0];
         try {
@@ -64,10 +66,13 @@ public class Alert_view extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //Display patient info in non-clickable listview
         lvp=(ListView)findViewById(R.id.patient_info_alert);
         ArrayAdapter<String> adapter=new ArrayAdapter<>(Alert_view.this,R.layout.list_item,R.id.list_content,d);
         lvp.setAdapter(adapter);
 
+
+        //Store patient emergency information in array of strings
         String []s= new String[0];
         try {
             s = new String[]{webserver.getPatientEName(roomCode),webserver.getPatientEPhone(roomCode)};
@@ -75,10 +80,13 @@ public class Alert_view extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+        //Display patient info in non-clickable listview
         lve=(ListView)findViewById(R.id.emergency_contact_alert);
         ArrayAdapter<String> adapter1=new ArrayAdapter<>(Alert_view.this, R.layout.list_item,R.id.list_content,s);
         lve.setAdapter(adapter1);
 
+        //display status of patient
         boolean state = true;
         String []dismissed= new String [1];
         try {
@@ -99,13 +107,13 @@ public class Alert_view extends AppCompatActivity {
 
         //HERE
         resolved = (Button)findViewById(R.id.resolveButton);
-
+        //Resolve button to dismiss alert in Database
         resolved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     if (getAlertDismissed(aID) == false) {
-                        new  AlertDialog.Builder(Alert_view.this)
+                        new  AlertDialog.Builder(Alert_view.this) //dialog fragment is displayed in case the alert is already dismissed in the database
                                 .setIcon(android.R.drawable.ic_delete)
                                 .setTitle("Error")
                                 .setMessage("The alert is already dismissed.")
@@ -121,7 +129,7 @@ public class Alert_view extends AppCompatActivity {
                     }
 
                     else {
-                        updateAlertDismissed(false,aID);
+                        updateAlertDismissed(false,aID); //update the alert
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -130,7 +138,7 @@ public class Alert_view extends AppCompatActivity {
             }
         });
 
-        del = (Button)findViewById(R.id.resolveButton2);
+        del = (Button)findViewById(R.id.resolveButton2); //Delete alert from database
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,18 +149,7 @@ public class Alert_view extends AppCompatActivity {
                 }
             }
         });
-/*
-        resolved = (Button)findViewById(R.id.resolveButton);
-        resolved.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    webserver.updateAlertDismissed(true,aID);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
+
 
 
 

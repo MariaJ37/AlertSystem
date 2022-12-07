@@ -13,43 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/*
-public static void delPatientinfo(int roomCode) throws IOException {
-    URL url = null;
-    try {
-        url = new URL(webserverUrl+"/deletePatientInfo.php?roomCode="+roomCode);
-    } catch (MalformedURLException e) {
-        e.printStackTrace();
-    }
-    BufferedReader in = new BufferedReader(
-            new InputStreamReader(url.openStream())
-    );
-    in.close();
-    }
-    public static void addAlert(int roomCode, String alert, String timeof ) throws IOException {
-    URL url = null;
-    try {
-        url = new URL(webserverUrl+"/insertAlert.php?roomCode="+roomCode+"&alert=\""+alert+"\"&timeOf=\""+timeof+"\"");
-    } catch (MalformedURLException e) {
-        e.printStackTrace();
-    }
-    BufferedReader in = new BufferedReader(
-            new InputStreamReader(url.openStream())
-    );
-    in.close();
-}
- String s = store.substring(store.indexOf("roomCode:") + 9);
-        s = s.substring(0, s.indexOf("/"));
-        s = s.replace(" ", "");
-        int temp = Integer.parseInt(s);
-        list.add(temp);
-        store = store.substring(store.indexOf("<br>")+4);
-*/
+
 public class webserver {
     final static String webserverUrl = "http://justinapt1.asuscomm.com";
 
     @RequiresApi(api = Build.VERSION_CODES.N)
 
+    //The following codes are setter and getter functions for database manipulation
     public static int getPercent(int roomCode) throws IOException {
         URL url = null;
 
@@ -878,21 +848,7 @@ public class webserver {
         );
         in.close();
     }
-    // Hard Coded Alert Test function
-    public static void addAlert() throws IOException {
-        URL url = null;
 
-        try {
-            url = new URL(webserverUrl+"/insertAlert.php?roomCode=001&alert=\"Test\"&timeOf=\"2022-10-22 03:03:03\"");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(url.openStream())
-        );
-        in.close();
-    }
 
     public static int[] getcodesallpatientInfo() throws IOException {
         URL url = null;
@@ -1459,7 +1415,34 @@ public class webserver {
         );
     }
 
+    public static void alertRem(int roomCode) throws IOException {
+        int arr[] = getAllAlertIDS();
+        int num = 0;
+        int roomnum = 0;
+        int arr2[];
 
+        for (int i = 0; i < arr.length; ++i) {
+            roomnum = getAlertRoomCode(arr[i]);
+            if (getPatientName(roomnum) == "Field Not Set") {
+              ++num;
+            }
+        }
+
+        arr2 = new int[num];
+        int cnt = 0;
+
+        for (int i = 0; i < arr.length; ++i) {
+            roomnum = getAlertRoomCode(arr[i]);
+            if (getPatientName(roomnum) == "Field Not Set") {
+                arr2[cnt] = arr[i];
+                cnt++;
+            }
+        }
+
+        for (int i = 0; i < num; ++i) {
+            delAlert(arr2[i]);
+        }
+    }
 
 
 }

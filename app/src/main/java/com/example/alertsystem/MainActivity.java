@@ -1,5 +1,8 @@
 package com.example.alertsystem;
 
+import static com.example.alertsystem.webserver.createBatAlert;
+import static com.example.alertsystem.webserver.createMovAlert;
+import static com.example.alertsystem.webserver.createWifiAlert;
 import static com.example.alertsystem.webserver.iDelength;
 import static com.example.alertsystem.webserver.iDnameaid;
 
@@ -27,6 +30,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import com.example.alertsystem.databinding.ActivityMainBinding;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Stop sending notifications when user accesses the Main Activity
         stopService(new Intent(MainActivity.this,BackgroundService.class));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -49,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
 
+        //Alert button for Viewing All Alerts
         alert = (Button)findViewById(R.id.AlertButton);
         alert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Store Non-dismissed ID's into array of strings
         int length = 0;
         try {
             length = iDelength(false);
@@ -71,12 +79,14 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //Display Clickable listview for Alerts
         lvA=(ListView)findViewById(R.id.alert_notification_on_main);
         ArrayAdapter<String> adapter=new ArrayAdapter<>(MainActivity.this,R.layout.list_item,R.id.list_content,s);
         lvA.setAdapter(adapter);
         lvA.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //When the user clicks on the listview, the position clicked on the listview is passed as an integer to the Alert_view class
                 int pos = lvA.getPositionForView(view);
                 int j = 0;
 
@@ -100,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(pass);
             }
         });
-
+        //Store all roomCodes with patient info added into an array of strings
         int len = 0;
         try {
             len = webserver.getElenz();
@@ -113,12 +123,15 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //Display the array of strings in a Clickable listview
         lv=(ListView) findViewById(R.id.listview_of_devices);
         adapter=new ArrayAdapter<String>(MainActivity.this,R.layout.list_item,R.id.list_content,d);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //When the user clicks on the listview, the position clicked on the listview is passed as an integer to the Info_view class
                 int pos = lv.getPositionForView(view);
                 int j = 0;
 
@@ -144,8 +157,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
     }
 
+    //Inflate Menu in actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -153,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //When an option is selected from the menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -191,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //When the application is terminated begin the background service to check for alerts in the database
     @Override
     protected void onStop() {
         super.onStop();

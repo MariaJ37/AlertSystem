@@ -26,14 +26,13 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class PatientInfo extends AppCompatActivity {
-    //This is Edit info class, Referenced from the application design.
     private Button Save;
     private EditText addName,addAdd,addPhone,addRoom,addEname,addEphone;
     boolean isAllFieldsChecked=false;
     private int roomCode = 0;
     private TextView RoomCode;
 
-    //****** check to see if anything is different here
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +42,7 @@ public class PatientInfo extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+        //Back button
         findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,11 +50,14 @@ public class PatientInfo extends AppCompatActivity {
                 finish();
             }
         });
+
+        //Method to "catch" passed information
         Intent pass = getIntent();
         String room = pass.getStringExtra("code");
         roomCode = Integer.parseInt(room);
         String m = Integer.toString(roomCode);
 
+        //Inizialize all edit text and textviews
         RoomCode = (TextView)findViewById(R.id.roomcode);
         RoomCode.setText(m);
         Save = (Button) findViewById(R.id.SaveButtonPatient);
@@ -63,26 +66,28 @@ public class PatientInfo extends AppCompatActivity {
         addPhone = (EditText) findViewById(R.id.Patient_Phone);
         addEname = (EditText) findViewById(R.id.Emergency_name);
         addEphone = (EditText) findViewById(R.id.Emergency_Phone);
-        //addRoom = (EditText) findViewById(R.id.Patient_Room);
 
-
+        //if save button is clicked
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 isAllFieldsChecked = CheckAllFields();
                 //If All the fields are fild then do this
                 if (isAllFieldsChecked){
+                    //add all user inputs to strings
                 String name = addName.getText().toString();
                 String address = addAdd.getText().toString();
                 String ename = addEname.getText().toString();
                 String phone = addPhone.getText().toString();
                 String ephone = addEphone.getText().toString();
                 try {
+                    //set the patient information in Database
                     webserver.setPatientinfo(name, address, ename, roomCode, ephone, phone);
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                //return to Main activity
                 Intent v = new Intent(getApplicationContext(), MainActivity.class);
 
                 startActivity(v);

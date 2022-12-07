@@ -24,12 +24,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Update_info extends AppCompatActivity {
-    //This is Edit info class, Referenced from the application design.
     private Button Save;
     private EditText addName,addAdd,addPhone,addRoom,addEname,addEphone;
-    boolean isAllFieldsChecked=false;
+    private boolean isAllFieldsChecked=false;
 
-    //****** check to see if anything is different here
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +38,7 @@ public class Update_info extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+        //Back button
         findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,10 +46,13 @@ public class Update_info extends AppCompatActivity {
                 finish();
             }
         });
+        //Method to catch passed data
         Intent pass = getIntent();
         String room = pass.getStringExtra("code");
         int code = Integer.parseInt(room);
 
+
+        //initialize all edit text and text views
         Save = (Button) findViewById(R.id.SaveButtonPatient);
         addName = (EditText) findViewById(R.id.Patient_Name);
         addAdd = (EditText) findViewById(R.id.Patient_Address);
@@ -59,6 +62,7 @@ public class Update_info extends AppCompatActivity {
         addRoom = (EditText) findViewById(R.id.Patient_Room);
         addRoom.setText(code);
         addRoom.setEnabled(false);
+        //set the text for the edit text so user doesnt need to change all information
         try {
             addName.setText(getPatientName(code));
             addAdd.setText(getPatientAddress(code));
@@ -70,6 +74,7 @@ public class Update_info extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //if Save button is clicked
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,11 +89,13 @@ public class Update_info extends AppCompatActivity {
                     String roomtmp = addRoom.getText().toString();
                     int room = Integer.parseInt(roomtmp);
                     try {
+                        //Update patient information in Database
                         upPatientinfo(name, address, ename, room, ephone, phone);
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    //Return to Main Activity
                     Intent v = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(v);
                 }

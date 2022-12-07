@@ -27,7 +27,9 @@ public class InfoViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_view);
-        getSupportActionBar().hide();
+
+
+        //Back button
         findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,23 +41,14 @@ public class InfoViewActivity extends AppCompatActivity {
             StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        /*
-        findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-                finish();
-            }
-        });
-        */
 
+        //method to catch passed data
         Intent pass = getIntent();
         String room = pass.getStringExtra("code");
-
         roomCode = Integer.parseInt(room);
-
-
         String m = Integer.toString(roomCode);
+
+        //method to store listview data in array of strings
         String [] d= new String[0];
         try {
 
@@ -64,10 +57,12 @@ public class InfoViewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //Print-out patient info in non clickable listview
         lvp=(ListView)findViewById(R.id.patient_info_alert1);
         ArrayAdapter<String> adapter=new ArrayAdapter<>(InfoViewActivity.this,R.layout.list_item,R.id.list_content,d);
         lvp.setAdapter(adapter);
 
+        //method to store listview data in array of strings
         String []s= new String[0];
         try {
             s = new String[]{webserver.getPatientEName(roomCode),webserver.getPatientEPhone(roomCode)};
@@ -75,21 +70,26 @@ public class InfoViewActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //Print-out patient emergency info in non clickable listview
         lve=(ListView)findViewById(R.id.emergency_contact_alert);
         ArrayAdapter<String> adapter1=new ArrayAdapter<>(InfoViewActivity.this, R.layout.list_item,R.id.list_content,s);
         lve.setAdapter(adapter1);
 
+        //method to store listview data in array of strings
         String []t= new String[0];
         try {
             t = new String[]{"Last Movement: "+webserver.getTimeOfMov(roomCode),"Wifi Connection: "+webserver.getTimeOfWifi(roomCode), "Battery Percentage: "+webserver.getPercent(roomCode)};
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //Print out patient status
         status=(ListView)findViewById(R.id.Movement_wifi);
         ArrayAdapter<String>adapter2=new ArrayAdapter<>(InfoViewActivity.this, R.layout.list_item,R.id.list_content,t);
         status.setAdapter(adapter2);
     }
 
+    //inflate menu in actionbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -97,6 +97,7 @@ public class InfoViewActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    //if update patient info is selected navigate to respective activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

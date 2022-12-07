@@ -31,7 +31,7 @@ public class AvailableRooms extends AppCompatActivity {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-
+        //Back button
         findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,14 +39,16 @@ public class AvailableRooms extends AppCompatActivity {
                 finish();
             }
         });
+
+        //get all room codes in Database and store it in an array
         int[] rooms= new int [1];
         try {
             rooms=webserver.getAllRoomCodesAllTables();
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        int len = 0;
-//        int [] ref = new int [len];
+
+        //display all available rooms in Database
         ArrayList<Integer> tempListArray = new ArrayList<Integer>();
         for (int i = 0; i<=rooms.length -1; i++) {
             String temp =" ";
@@ -59,21 +61,24 @@ public class AvailableRooms extends AppCompatActivity {
                 tempListArray.add(rooms[i]);
             }
         }
+
+        //display Clickable listview for all available rooms
         int [] ref = new int[tempListArray.size()];
         for (int i = 0; i< tempListArray.size(); i++) {
             ref[i] = tempListArray.get(i);
         }
-        lv=(ListView) findViewById(R.id.roomCodes);
         ArrayList<String> arrayList=new ArrayList<String>();
         for (int s:ref){
             arrayList.add(String.valueOf(s));
         }
+
+        lv=(ListView) findViewById(R.id.roomCodes);
         ArrayAdapter adapter=new ArrayAdapter<String>(this,R.layout.list_item,R.id.list_content,arrayList);
         lv.setAdapter(adapter);
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long s) {
+                //Checks users position and navigate accordingly
                 int pos = lv.getPositionForView(view);
                 int[] rooms= new int [1];
                 try {

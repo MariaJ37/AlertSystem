@@ -20,11 +20,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class RemoveDevice extends AppCompatActivity {
-    //Button delete;
-    EditText editText;
-    ListView lv;
-    ArrayList<String> listItems;
-    ArrayAdapter<String>adapter;
+   private EditText editText;
+   private ListView lv;
+   private ArrayList<String> listItems;
+   private ArrayAdapter<String>adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +34,7 @@ public class RemoveDevice extends AppCompatActivity {
         }
         setContentView(R.layout.activity_remove_device);
         getSupportActionBar().hide();
+        //back button
         findViewById(R.id.back1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,11 +42,9 @@ public class RemoveDevice extends AppCompatActivity {
                 finish();
             }
         });
-       /* Intent code =getIntent();
-        String room = code.getStringExtra("roomCode");
-        int roomCode=Integer.parseInt(room);*/
 
 
+        //Method to store patient roomCode and name in array of strings
         int len = 0;
         try {
             len = webserver.getenumofEnt();
@@ -59,8 +57,8 @@ public class RemoveDevice extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //delete=(Button)findViewById(R.id.DeleteButton);
-        //editText=(EditText)findViewById(R.id.editTextPhone);
+
+        //display clickable listviews
         lv=(ListView) findViewById(R.id.remove_devices_listview);
         adapter=new ArrayAdapter<String>(RemoveDevice.this,R.layout.list_item,R.id.list_content,d);
         lv.setAdapter(adapter);
@@ -69,6 +67,7 @@ public class RemoveDevice extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final int which_item= i;
+                //Alert dialog to ask if the user wants to delete the patient
                 new  AlertDialog.Builder(RemoveDevice.this)
                         .setIcon(android.R.drawable.ic_delete)
                         .setTitle("Are you sure?")
@@ -82,12 +81,15 @@ public class RemoveDevice extends AppCompatActivity {
                                 int ID = Integer.parseInt(idData);
 
                                 try {
+                                    //remove patient info from roomCode and remove all alerts associated with the removed patient from the Database
                                     webserver.delPatientinfo(ID);
+                                    webserver.alertRem(ID);
 
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                                Toast.makeText(RemoveDevice.this, "deleting...", Toast.LENGTH_SHORT).show();
+
+                                //Return to main activity
                                 Intent v =new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(v);
                             }
